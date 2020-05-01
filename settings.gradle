@@ -1,0 +1,2 @@
+rootProject.name='OverliftApp'
+include ':app'
