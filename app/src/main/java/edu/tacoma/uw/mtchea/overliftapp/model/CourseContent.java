@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class CourseContent {
 
-    public static final List<Course> ITEMS = new ArrayList<Course>();
-    public static final Map<String, Course> ITEM_MAP = new HashMap<String, Course>();
+    public static final List<Exercise> ITEMS = new ArrayList<Exercise>();
+    public static final Map<String, Exercise> ITEM_MAP = new HashMap<String, Exercise>();
     private static final int COUNT = 25;
 
     static {
@@ -17,18 +17,18 @@ public class CourseContent {
         }
     }
 
-    private static void addItem(Course item){
+    private static void addItem(Exercise item){
         ITEMS.add(item);
-        ITEM_MAP.put(item.getCourseId(), item);
+        ITEM_MAP.put(item.getExercise(), item);
     }
 
-    private static Course createCourseItem(int position){
-        return new Course("Id"+position, "Long desc " + position, "short desc" + position, "Pre reqs" + position);
+    private static Exercise createCourseItem(int position){
+        return new Exercise("Name"+position, "Target Area " + position, "Complexity" + position, "Description" + position);
     }
 
     private static String makeDetails(int position){
         StringBuilder builder = new StringBuilder();
-        builder.append("Details about course: ").append(position);
+        builder.append("Details about exercise: ").append(position);
         for(int i = 0; i < position; i++){
             builder.append("\nMore details information here.");
         }

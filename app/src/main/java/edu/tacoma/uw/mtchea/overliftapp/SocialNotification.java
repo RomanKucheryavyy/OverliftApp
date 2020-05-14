@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
 //import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -48,28 +50,28 @@ public class SocialNotification extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
-                        Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SocialNotification.this
                                 , WorkoutListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
-                        Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.page_3:
-                        Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
                         //Context context = bottomNavigationView.getContext();
                         Intent intent3 = new Intent(SocialNotification.this
                                 , MainActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.page_4:
-                        Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
                         Intent intent4 = new Intent(SocialNotification.this, SocialNotification.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
-                        Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
 
                         break;
                 }
