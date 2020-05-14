@@ -49,7 +49,7 @@ public class WorkoutListActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
-                        //Toast.makeText(MainActivity.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WorkoutListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(WorkoutListActivity.this
                                 , WorkoutListActivity.class);
                         startActivity(intent);
