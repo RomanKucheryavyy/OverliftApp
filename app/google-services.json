@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "711996837440",
+    "firebase_url": "https://overliftapp.firebaseio.com",
+    "project_id": "overliftapp",
+    "storage_bucket": "overliftapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711996837440:android:8d4b1e6823212dfe0919a5",
+        "android_client_info": {
+          "package_name": "edu.tacoma.uw.mtchea.overliftapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711996837440-fu9c1bue5sfshs0spq7deujtnraaj56m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.tacoma.uw.mtchea.overliftapp",
+            "certificate_hash": "662c727692f36a39523996d145b0dd5bfc83ac20"
+          }
+        },
+        {
+          "client_id": "711996837440-2o8pvt2hk36a62dc0lacs9e31jcn0vmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqza5mhKpk_Lwe4QzOkimUM3yJWHfTkaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711996837440-2o8pvt2hk36a62dc0lacs9e31jcn0vmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
