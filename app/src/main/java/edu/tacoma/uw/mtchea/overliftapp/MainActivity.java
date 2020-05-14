@@ -49,9 +49,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.page_4:
                         Toast.makeText(MainActivity.this, "social", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(MainActivity.this, SocialNotification.class);
+                        startActivity(intent4);
                         break;
                     case R.id.page_5:
                         Toast.makeText(MainActivity.this, "profile", Toast.LENGTH_SHORT).show();
+
                         break;
                 }
                 return true;
