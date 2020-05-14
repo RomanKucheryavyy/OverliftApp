@@ -1,12 +1,16 @@
 package edu.tacoma.uw.mtchea.overliftapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import edu.tacoma.uw.courseswebservicesapp.data.CourseDB;
@@ -39,7 +43,41 @@ public class WorkoutListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Workouts");
-
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        //Toast.makeText(MainActivity.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(WorkoutListActivity.this
+                                , WorkoutListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.page_2:
+                        Toast.makeText(WorkoutListActivity.this, "health", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.page_3:
+                        Toast.makeText(WorkoutListActivity.this, "workout", Toast.LENGTH_SHORT).show();
+                        //Context context = bottomNavigationView.getContext();
+                        Intent intent3 = new Intent(WorkoutListActivity.this
+                                , MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.page_4:
+                        Toast.makeText(WorkoutListActivity.this, "social", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.page_5:
+                        Toast.makeText(WorkoutListActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+        mRecyclerView = findViewById(R.id.item_list);
+        assert mRecyclerView != null;
+        setupRecyclerView((RecyclerView) mRecyclerView);
+    }
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -56,10 +94,6 @@ public class WorkoutListActivity extends AppCompatActivity {
 //            mTwoPane = true;
 //        }
 
-        mRecyclerView = findViewById(R.id.item_list);
-        assert mRecyclerView != null;
-        setupRecyclerView((RecyclerView) mRecyclerView);
-    }
     @Override
     protected void onResume() {
         super.onResume();
