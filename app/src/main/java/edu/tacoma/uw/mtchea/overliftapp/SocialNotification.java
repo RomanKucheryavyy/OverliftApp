@@ -16,11 +16,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+//import com.google.android.gms.tasks.OnCompleteListener;
+//import com.google.android.gms.tasks.Task;
+//import com.google.android.material.bottomnavigation.BottomNavigationView;
+//import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.InstanceIdResult;
 
 public class SocialNotification extends AppCompatActivity {
 
@@ -38,7 +38,44 @@ public class SocialNotification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_notification);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Notification");
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SocialNotification.this
+                                , WorkoutListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.page_2:
+                        Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.page_3:
+                        Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
+                        //Context context = bottomNavigationView.getContext();
+                        Intent intent3 = new Intent(SocialNotification.this
+                                , MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.page_4:
+                        Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(SocialNotification.this, SocialNotification.class);
+                        startActivity(intent4);
+                        break;
+                    case R.id.page_5:
+                        Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
+
+                        break;
+                }
+                return true;
+            }
+        });
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -57,19 +94,19 @@ public class SocialNotification extends AppCompatActivity {
 
 
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-
-                        if(task.isSuccessful()) {
-                            String token = task.getResult().getToken();
-
-                        } else {
-
-                        }
-                    }
-                });
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//
+//                        if(task.isSuccessful()) {
+//                            String token = task.getResult().getToken();
+//
+//                        } else {
+//
+//                        }
+//                    }
+//                });
 
 
     }
