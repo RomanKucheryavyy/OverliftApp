@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OverliftApp</string>
     <string name="today_s_workout">Today\'s Workout:</string>
+    <string name="this_is_the_profile_activity">This is the Profile Activity</string>
 </resources>
