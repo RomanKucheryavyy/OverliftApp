@@ -39,7 +39,7 @@ public class SocialNotification extends AppCompatActivity {
     // Notification Builder
     // Notification Manager
 
-    private static final String CHANNEL_ID = "Outlift_social";
+    public static final String CHANNEL_ID = "Outlift_social";
     private static final String CHANNEL_NAME = "Outlift social channel name";
     private static final String CHANNEL_DESC = "Outlift Social Notification";
 
@@ -115,25 +115,7 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (task.isSuccessful()) {
-//                            String token = task.getResult().getToken();
-//                        } else {
-//
-//                        }
-//                    }
-//                });
-
-
-//        findViewById(R.id.buttonNotify).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                displayNotification();
-//            }
-//        });
+//        NotificationHelper.displayNotification(this, "title", "body");
 
 
 
@@ -214,15 +196,4 @@ public class SocialNotification extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void displayNotification() {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_message)
-                    .setContentTitle("Outlift Notification")
-                    .setContentText("Workout with me!")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(1, mBuilder.build());
-    }
 }

@@ -1,10 +1,16 @@
 package edu.tacoma.uw.mtchea.overliftapp;
 
-public class UserSocial {
+import java.io.Serializable;
+
+public class UserSocial implements Serializable {
     public String email;
     public String token;
 
-    public UserSocial(String email, String token) {
+    public UserSocial() {
+
+    }
+
+    public UserSocial(String email, String token)  {
         this.email = email;
         this.token = token;
     }
