@@ -44,7 +44,6 @@ public class SendNotificationActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void sendNotification(UserSocial user) {
@@ -64,7 +63,7 @@ public class SendNotificationActivity extends AppCompatActivity {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://overliftapp.firebase.com/api/")
+                .baseUrl("https://us-central1-overliftapp.cloudfunctions.net/app/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

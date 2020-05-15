@@ -1,16 +1,19 @@
 {
-  "hosting": {
-    "public": "public",
-    "rewrite": [
+    "hosting": {
+      "public": "public",
+      "rewrites": [ 
+        {
+        "source": "api/send",
+        "function": "app"
+      },
       {
-        "source": "/api/send",
-        "function": "api"
-      }
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
+        "source": "/bigben",
+        "function": "bigben"
+      },
+      {
+        "source": "**",
+        "function": "apps"
+      } ]
+    }
+    
 }
