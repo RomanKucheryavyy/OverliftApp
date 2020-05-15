@@ -72,7 +72,8 @@ public class SocialNotification extends AppCompatActivity {
                         break;
                     case R.id.page_5:
                         //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
-
+                        Intent intent5 = new Intent(SocialNotification.this, ProfileActivity.class);
+                        startActivity(intent5);
                         break;
                 }
                 return true;

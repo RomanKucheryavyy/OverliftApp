@@ -93,6 +93,8 @@ public class WorkoutListActivity extends AppCompatActivity {
                         break;
                     case R.id.page_5:
                         Toast.makeText(WorkoutListActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(WorkoutListActivity.this, ProfileActivity.class);
+                        startActivity(intent5);
                         break;
                 }
                 return true;
