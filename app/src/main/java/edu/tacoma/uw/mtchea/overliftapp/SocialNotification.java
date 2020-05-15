@@ -13,10 +13,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
@@ -33,6 +42,11 @@ public class SocialNotification extends AppCompatActivity {
     private static final String CHANNEL_ID = "Outlift_social";
     private static final String CHANNEL_NAME = "Outlift social channel name";
     private static final String CHANNEL_DESC = "Outlift Social Notification";
+
+    private EditText editTextEmail, editTextPassword;
+    private ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
 
 
 
@@ -79,6 +93,8 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESC);
@@ -86,6 +102,31 @@ public class SocialNotification extends AppCompatActivity {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
+
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.INVISIBLE);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+
+        findViewById(R.id.buttonSignUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createUser();
+            }
+        });
+
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (task.isSuccessful()) {
+//                            String token = task.getResult().getToken();
+//                        } else {
+//
+//                        }
+//                    }
+//                });
+
 
 //        findViewById(R.id.buttonNotify).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -96,21 +137,81 @@ public class SocialNotification extends AppCompatActivity {
 
 
 
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//
-//                        if(task.isSuccessful()) {
-//                            String token = task.getResult().getToken();
-//
-//                        } else {
-//
-//                        }
-//                    }
-//                });
+    }
 
+    private void createUser() {
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
+        if(email.isEmpty()) {
+            editTextEmail.setError("Email required");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(password.isEmpty()) {
+            editTextPassword.setError("Password required");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if(password.length() < 6) {
+            editTextPassword.setError("Password should be at least 6 characters");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            startSocialActivity();
+                        } else {
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                userLogin(email, password);
+                            }else{
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(SocialNotification.this, task.getException()
+                                        .getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void userLogin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            startSocialActivity();
+                        }else{
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SocialNotification.this, task.getException()
+                                    .getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // if user is not logged in send him to main login activity.
+        if(mAuth.getCurrentUser() != null) {
+            startSocialActivity();
+        }
+
+    }
+
+    private void startSocialActivity() {
+        Intent intent = new Intent(this, SocialActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void displayNotification() {
