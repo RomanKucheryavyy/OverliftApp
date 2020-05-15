@@ -42,7 +42,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <include
-                layout="@layout/course_list"
+                layout="@layout/exercise_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>

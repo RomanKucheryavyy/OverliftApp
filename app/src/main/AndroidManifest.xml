@@ -38,6 +38,11 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".ExerciseDetailActivity"
+            android:label="Item Detail"
+            android:parentActivityName=".WorkoutListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

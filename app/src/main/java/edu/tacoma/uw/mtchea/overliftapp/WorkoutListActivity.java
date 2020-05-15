@@ -108,13 +108,13 @@ public class WorkoutListActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        if (findViewById(R.id.item_detail_container) != null) {
-//            // The detail container view will be present only in the
-//            // large-screen layouts (res/values-w900dp).
-//            // If this view is present, then the
-//            // activity should be in two-pane mode.
-//            mTwoPane = true;
-//        }
+        if (findViewById(R.id.item_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
     }
     @Override
     protected void onResume() {
@@ -161,19 +161,19 @@ public class WorkoutListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Exercise item = (Exercise) view.getTag();
                 if (mTwoPane) {
-//                    Bundle arguments = new Bundle();
-//                    arguments.putSerializable(CourseDetailFragment.ARG_ITEM_ID, item);
-//                    CourseDetailFragment fragment = new CourseDetailFragment();
-//                    fragment.setArguments(arguments);
-//                    mParentActivity.getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.item_detail_container, fragment)
-//                            .commit();
+                    Bundle arguments = new Bundle();
+                    arguments.putSerializable(ExerciseDetailFragment.ARG_ITEM_ID, item);
+                    ExerciseDetailFragment fragment = new ExerciseDetailFragment();
+                    fragment.setArguments(arguments);
+                    mParentActivity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.item_detail_container, fragment)
+                            .commit();
                 } else {
-//                    Context context = view.getContext();
-//                    Intent intent = new Intent(context, CourseDetailActivity.class);
-//                    intent.putExtra(CourseDetailFragment.ARG_ITEM_ID, item);
-//
-//                    context.startActivity(intent);
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, ExerciseDetailActivity.class);
+                    intent.putExtra(ExerciseDetailFragment.ARG_ITEM_ID, item);
+
+                    context.startActivity(intent);
                 }
             }
         };
@@ -189,7 +189,7 @@ public class WorkoutListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.course_list_content, parent, false);
+                    .inflate(R.layout.exercise_list_content, parent, false);
             return new ViewHolder(view);
         }
 
