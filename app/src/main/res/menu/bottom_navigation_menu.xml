@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/page_1"
+    android:enabled="true"
+    android:icon="@drawable/bookmark"
+    android:title="exercises"/>
+<item
+    android:id="@+id/page_2"
+    android:enabled="true"
+    android:icon="@drawable/heart"
+    android:title="health"
+    />
+    <item
+        android:id="@+id/page_3"
+        android:enabled="true"
+        android:icon="@drawable/workout"
+        android:title="workouts"/>
+    <item
+        android:id="@+id/page_4"
+        android:enabled="true"
+        android:icon="@drawable/talk"
+        android:title="social"/>
+    <item
+        android:id="@+id/page_5"
+        android:enabled="true"
+        android:icon="@drawable/star"
+        android:title="profile"/>
+</menu>
