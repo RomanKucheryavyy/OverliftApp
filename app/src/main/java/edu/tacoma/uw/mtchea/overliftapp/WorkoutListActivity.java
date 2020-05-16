@@ -35,15 +35,14 @@ import java.util.List;
 import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 
 /**
- * Roman Kucheryavyy, Code Snippets from Professor Menaka Abraham webcourseservices lab
- *
- *
- *
- * The exercise list activity, where all the exercises will be held in, to give a user a high priority story of being able
- * to look up various exercises and read about them as to what muscle groups they workout, how difficult they are and a description about
- * how to perform that specific workout.
+ * An activity representing a list of Items. This activity
+ * has different presentations for handset and tablet-size devices. On
+ * handsets, the activity presents a list of items, which when touched,
+ * lead to a { CourseDetailActivity} representing
+ * item details. On tablets, the activity presents the list of items and
+ * item details side-by-side using two vertical panes.
  */
-public class ExerciseListActivity extends AppCompatActivity {
+public class WorkoutListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -52,6 +51,7 @@ public class ExerciseListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     private List<Exercise> mExercisesList;
     private RecyclerView mRecyclerView;
+  //  private CourseDB mCourseDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,38 +65,35 @@ public class ExerciseListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Exercises");
-        /**
-         * Creating bottom navigation bar with all its corresponding intents
-         */
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
-                        Toast.makeText(ExerciseListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ExerciseListActivity.this
-                                , ExerciseListActivity.class);
+                        Toast.makeText(WorkoutListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(WorkoutListActivity.this
+                                , WorkoutListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
-                        Toast.makeText(ExerciseListActivity.this, "health", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WorkoutListActivity.this, "health", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.page_3:
-                        Toast.makeText(ExerciseListActivity.this, "workout", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WorkoutListActivity.this, "workout", Toast.LENGTH_SHORT).show();
                         //Context context = bottomNavigationView.getContext();
-                        Intent intent3 = new Intent(ExerciseListActivity.this
+                        Intent intent3 = new Intent(WorkoutListActivity.this
                                 , MainActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.page_4:
-                        Toast.makeText(ExerciseListActivity.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(ExerciseListActivity.this, SocialNotification.class);
+                        Toast.makeText(WorkoutListActivity.this, "social", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(WorkoutListActivity.this, SocialNotification.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
-                        Toast.makeText(ExerciseListActivity.this, "profile", Toast.LENGTH_SHORT).show();
-                        Intent intent5 = new Intent(ExerciseListActivity.this, ProfileActivity.class);
+                        Toast.makeText(WorkoutListActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(WorkoutListActivity.this, ProfileActivity.class);
                         startActivity(intent5);
                         break;
                 }
@@ -105,8 +102,19 @@ public class ExerciseListActivity extends AppCompatActivity {
         });
 
 
-        if (findViewById(R.id.item_detail_container) != null) {
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                launchCourseAddFragment();
+//            }
+//        });
 
+        if (findViewById(R.id.item_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
             mTwoPane = true;
         }
     }
@@ -118,7 +126,7 @@ public class ExerciseListActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             if (mExercisesList == null) {
-                new ExerciseTask().execute(getString(R.string.get_exercises));
+                new CoursesTask().execute(getString(R.string.get_exercises));
             }
         }
 //        else {
@@ -137,24 +145,17 @@ public class ExerciseListActivity extends AppCompatActivity {
 //        }
     }
 
-    /**
-     *
-     * @param recyclerView
-     */
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if(mExercisesList != null){
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mExercisesList, mTwoPane));
         }
 
     }
-
-    /**
-     * Recycler view to hold a list of exercises and there muscle group they are a part of
-     */
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final ExerciseListActivity mParentActivity;
+        private final WorkoutListActivity mParentActivity;
         private final List<Exercise> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -179,7 +180,7 @@ public class ExerciseListActivity extends AppCompatActivity {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(ExerciseListActivity parent,
+        SimpleItemRecyclerViewAdapter(WorkoutListActivity parent,
                                       List<Exercise> items,
                                       boolean twoPane) {
             mValues = items;
@@ -219,7 +220,7 @@ public class ExerciseListActivity extends AppCompatActivity {
             }
         }
     }
-    private class ExerciseTask extends AsyncTask<String, Void, String> {
+    private class CoursesTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {

@@ -1,9 +1,13 @@
 package edu.tacoma.uw.mtchea.overliftapp;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import android.view.View;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,13 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * Roman Kucheryavyy, Code Snippets from Professor Menaka Abraham webcourseservices lab
- *
- *
- * Main Activity class where the workouts and the main function of the app will be in, the activity where a user gets to
- * view her workout and time it, sort of like a homepage for the main functinality in the app which is to perform and organize a workout.
- */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Workout");
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        /**
-         * Creating bottom navigation bar with all its corresponding intents
-         */
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -39,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.page_1:
                         Toast.makeText(MainActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this
-                                , ExerciseListActivity.class);
+                                , WorkoutListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:

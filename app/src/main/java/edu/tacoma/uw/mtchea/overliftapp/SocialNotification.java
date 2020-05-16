@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,7 +52,7 @@ public class SocialNotification extends AppCompatActivity {
                     case R.id.page_1:
                         //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SocialNotification.this
-                                , ExerciseListActivity.class);
+                                , WorkoutListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:

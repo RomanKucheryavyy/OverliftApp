@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExerciseContent {
+public class CourseContent {
 
     public static final List<Exercise> ITEMS = new ArrayList<Exercise>();
     public static final Map<String, Exercise> ITEM_MAP = new HashMap<String, Exercise>();
@@ -13,7 +13,7 @@ public class ExerciseContent {
 
     static {
         for(int i = 1; i <= COUNT; i++){
-            addItem(createExerciseContent(i));
+            addItem(createCourseItem(i));
         }
     }
 
@@ -22,7 +22,7 @@ public class ExerciseContent {
         ITEM_MAP.put(item.getExercise(), item);
     }
 
-    private static Exercise createExerciseContent(int position){
+    private static Exercise createCourseItem(int position){
         return new Exercise("Name"+position, "Target Area " + position, "Complexity" + position, "Description" + position);
     }
 

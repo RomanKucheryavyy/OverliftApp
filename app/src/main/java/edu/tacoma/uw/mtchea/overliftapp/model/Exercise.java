@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Exercises attributes, code snippets from Professor Menaka Abraham
- */
+
 public class Exercise implements Serializable {
     private String mExercise;
     private String mTargetArea;

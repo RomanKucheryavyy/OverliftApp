@@ -16,11 +16,8 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 
 
 /**
- * Roman Kucheryavyy, Code Snippets from Professor Menaka Abraham webcourseservices lab
- *
- *
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ExerciseListActivity}
+ * This fragment is either contained in a {@link WorkoutListActivity}
  * in two-pane mode (on tablets) or a {@link ExerciseDetailActivity}
  * on handsets.
  */
@@ -68,10 +65,10 @@ public class ExerciseDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mExercise != null) {
-//            ((TextView) rootView.findViewById(R.id.item_detail_name)).setText(mExercise.getExercise());
-            ((TextView) rootView.findViewById(R.id.item_detail_short_target_area)).setText("Target Area: \n -> " + mExercise.getTargetArea());
-            ((TextView) rootView.findViewById(R.id.item_detail_complexity)).setText("Complexity: \n -> " + mExercise.getComplexity());
-            ((TextView) rootView.findViewById(R.id.item_detail_description)).setText("Description: \n -> " + mExercise.getDescription());
+            ((TextView) rootView.findViewById(R.id.item_detail_name)).setText(mExercise.getExercise());
+            ((TextView) rootView.findViewById(R.id.item_detail_short_target_area)).setText(mExercise.getTargetArea());
+            ((TextView) rootView.findViewById(R.id.item_detail_complexity)).setText(mExercise.getComplexity());
+            ((TextView) rootView.findViewById(R.id.item_detail_description)).setText(mExercise.getDescription());
         }
 
         return rootView;
