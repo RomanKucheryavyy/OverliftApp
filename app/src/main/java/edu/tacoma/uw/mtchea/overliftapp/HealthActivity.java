@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Health/Diet activity class
+ */
 public class HealthActivity extends AppCompatActivity {
 
     @Override
