@@ -36,7 +36,7 @@
 <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
 <!--        <include-->
-<!--            layout="@layout/course_list"-->
+<!--            layout="@layout/exercise_list"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent" />-->
 <!--    </FrameLayout>-->
@@ -82,7 +82,7 @@
                 android:layout_marginStart="140dp"
                 android:layout_marginLeft="150dp"
                 android:layout_marginTop="150dp"
-                android:text="Today's Workout: "
+                android:text="@string/today_s_workout"
                 android:textAllCaps="false"
                 android:textSize="18sp" />
         </RelativeLayout>

@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.tacoma.uw.mtchea.overliftapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SendNotificationActivity"></activity>
+        <activity android:name=".HealthActivity"></activity>
         <!-- <activity android:name=".SocialNotification"></activity> -->
         <activity android:name=".SocialActivity" />
         <activity
@@ -25,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WorkoutListActivity"
+            android:name=".ExerciseListActivity"
             android:label="@string/app_name"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,6 +40,16 @@
             android:name=".SocialNotification"
             android:label="@string/app_name"
             android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ExerciseDetailActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ExerciseListActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service android:name=".MyFirebaseMessagingService">
