@@ -3,8 +3,6 @@ package edu.tacoma.uw.mtchea.overliftapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,8 +11,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,18 +30,49 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 //import com.google.firebase.iid.FirebaseInstanceId;
 //import com.google.firebase.iid.InstanceIdResult;
 
+
+/**
+ * The main Social Notification Tab that contains the user log in.
+ * To use the social tab and send messages/notifications to other people
+ * initial sign up/log in is required.
+ * @author Ilya Bokov
+ * @version May 11, 2020
+ */
 public class SocialNotification extends AppCompatActivity {
+    /**
+     * Channel ID Used for creation of NotificationChannel.
+     */
+    public static final String CHANNEL_ID = "Outlift_social";
 
-    // Notification Channel
-    // Notification Builder
-    // Notification Manager
-
-    private static final String CHANNEL_ID = "Outlift_social";
+    /**
+     * Channel Name Used for creation of NotificationChannel.
+     */
     private static final String CHANNEL_NAME = "Outlift social channel name";
+
+    /**
+     * Channel Description Used for creation of NotificationChannel.
+     */
     private static final String CHANNEL_DESC = "Outlift Social Notification";
 
+    /**
+     * EditText fields for Email and Password.
+     */
+    private EditText editTextEmail, editTextPassword;
 
+    /**
+     * Progress bar while the user is being signed up.
+     */
+    private ProgressBar progressBar;
 
+    /**
+     * Firebase authorization required to signing/signup into Firebase.
+     */
+    private FirebaseAuth mAuth;
+
+    /**
+     * Creates navigationbar,
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +80,8 @@ public class SocialNotification extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Notification");
+
+        // The navigation bar that lists all the tabs on the bottom.
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,6 +119,10 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
+        // Gets the authorization from Firebase.
+        mAuth = FirebaseAuth.getInstance();
+
+        // Creates the NotificatonChannel used to display the notification.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESC);
@@ -88,41 +131,97 @@ public class SocialNotification extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
-//        findViewById(R.id.buttonNotify).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                displayNotification();
-//            }
-//        });
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.INVISIBLE);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
+        findViewById(R.id.buttonSignUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createUser();
+            }
+        });
 
+//        NotificationHelper.displayNotification(this, "title", "body");
 
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//
-//                        if(task.isSuccessful()) {
-//                            String token = task.getResult().getToken();
-//
-//                        } else {
-//
-//                        }
-//                    }
-//                });
 
 
     }
 
-    private void displayNotification() {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_message)
-                    .setContentTitle("Outlift Notification")
-                    .setContentText("Workout with me!")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    private void createUser() {
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(1, mBuilder.build());
+        if(email.isEmpty()) {
+            editTextEmail.setError("Email required");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(password.isEmpty()) {
+            editTextPassword.setError("Password required");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if(password.length() < 6) {
+            editTextPassword.setError("Password should be at least 6 characters");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            startSocialActivity();
+                        } else {
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                userLogin(email, password);
+                            }else{
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(SocialNotification.this, task.getException()
+                                        .getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
     }
+
+    private void userLogin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            startSocialActivity();
+                        }else{
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SocialNotification.this, task.getException()
+                                    .getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // if user is not logged in send him to main login activity.
+        if(mAuth.getCurrentUser() != null) {
+            startSocialActivity();
+        }
+
+    }
+
+    private void startSocialActivity() {
+        Intent intent = new Intent(this, SocialActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
 }

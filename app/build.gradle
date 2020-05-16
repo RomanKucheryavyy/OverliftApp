@@ -31,7 +31,9 @@ android {
 }
 
 dependencies {
-    def firebase_version = '20.1.7'
+    def firebase_messaging_version = '20.1.7'
+    def firebase_auth_version = '19.3.1'
+    def firebase_real_database_version = '19.3.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.android.material:material:1.2.0-alpha02'
@@ -40,20 +42,18 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
-//    implementation "com.google.firebase:firebase-messaging:$firebase_version"
+    implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
+    implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
+    implementation "com.google.firebase:firebase-database:$firebase_real_database_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-adapter:4.6.4'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-file-storage:4.6.4'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-core:4.6.4'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-push:4.6.4'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-ui:4.6.4'
-    implementation 'co.chatsdk.chatsdk:chat-sdk-ui:4.6.4'
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation 'com.google.firebase:firebase-auth:19.3.1'
 //    implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
 }
 
