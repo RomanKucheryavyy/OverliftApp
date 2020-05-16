@@ -81,7 +81,7 @@ public class SocialNotification extends AppCompatActivity {
 
         // The navigation bar that lists all the tabs on the bottom.
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+        bottomNavigationView.setSelectedItemId(R.id.page_4);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,6 +94,9 @@ public class SocialNotification extends AppCompatActivity {
                         break;
                     case R.id.page_2:
                         //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(SocialNotification.this
+                                , HealthActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.page_3:
                         //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();

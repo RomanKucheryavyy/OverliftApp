@@ -83,6 +83,11 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
         }
     }
 
+    /**
+     * When an option gets selected start intent
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -99,8 +104,10 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private class AddCourseAsyncTask extends AsyncTask<String, Void, String> {
+    /**
+     * Sync exercises
+     */
+    private class AddExerciseAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -140,6 +147,10 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
             return response;
         }
 
+        /**
+         * Helper method for when we might add courses through the app
+         * @param s
+         */
         @Override
         protected void onPostExecute(String s) {
             if (s.startsWith("Unable to add the new course")) {

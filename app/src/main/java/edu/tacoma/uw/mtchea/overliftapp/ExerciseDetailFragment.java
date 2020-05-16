@@ -14,12 +14,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 
 
-
 /**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ExerciseListActivity}
- * in two-pane mode (on tablets) or a {@link ExerciseDetailActivity}
- * on handsets.
+ * Exercise detail fragment is where the details about a certain exercise will be held and displayed in for a user to look up and later be
+ * able to add that exercise into his or her workout.
  */
 public class ExerciseDetailFragment extends Fragment {
     /**
@@ -40,6 +37,10 @@ public class ExerciseDetailFragment extends Fragment {
     public ExerciseDetailFragment() {
     }
 
+    /**
+     * craeting the layout and activity for exercise detail fragment
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,13 @@ public class ExerciseDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * initializing the text fields with exercise details
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -54,6 +54,11 @@ public class ExerciseListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
   //  private CourseDB mCourseDB;
 
+    /**
+     * On create method for exercise list activity, calling a navigation bar and creating a recycler view where the list of exercises
+     * will be held in
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,20 +72,30 @@ public class ExerciseListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Exercises");
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.page_1);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
+//                        bottomNavigationView.setSelected(false);
+//                        bottomNavigationView.setSelectedItemId(R.id.page_1);
                         Toast.makeText(ExerciseListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ExerciseListActivity.this
                                 , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
+//                        bottomNavigationView.setSelected(false);
+//                        bottomNavigationView.setSelectedItemId(R.id.page_2);
                         Toast.makeText(ExerciseListActivity.this, "health", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(ExerciseListActivity.this
+                                , HealthActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.page_3:
+//                        bottomNavigationView.setSelected(false);
+//                        bottomNavigationView.setSelectedItemId(R.id.page_3);
                         Toast.makeText(ExerciseListActivity.this, "workout", Toast.LENGTH_SHORT).show();
                         //Context context = bottomNavigationView.getContext();
                         Intent intent3 = new Intent(ExerciseListActivity.this
@@ -88,11 +103,14 @@ public class ExerciseListActivity extends AppCompatActivity {
                         startActivity(intent3);
                         break;
                     case R.id.page_4:
+//                        bottomNavigationView.setSelected(false);
+//                        bottomNavigationView.setSelectedItemId(R.id.page_4);
                         Toast.makeText(ExerciseListActivity.this, "social", Toast.LENGTH_SHORT).show();
                         Intent intent4 = new Intent(ExerciseListActivity.this, SocialNotification.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
+ //                       bottomNavigationView.setSelectedItemId(R.id.page_5);
                         Toast.makeText(ExerciseListActivity.this, "profile", Toast.LENGTH_SHORT).show();
                         Intent intent5 = new Intent(ExerciseListActivity.this, ProfileActivity.class);
                         startActivity(intent5);
