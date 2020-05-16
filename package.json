@@ -1,0 +1,24 @@
+{
+  "name": "overlift",
+  "version": "1.0.0",
+  "description": "Overlift app",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/logging": "^7.3.0",
+    "firebase-admin": "^8.12.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mercedeschea/Overlift.git"
+  },
+  "author": "ilya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mercedeschea/Overlift/issues"
+  },
+  "homepage": "https://github.com/mercedeschea/Overlift#readme"
+}
