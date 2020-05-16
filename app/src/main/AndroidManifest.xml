@@ -52,6 +52,15 @@
             android:parentActivityName=".ExerciseListActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+        <activity
+            android:name=".SendNotificationActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".SocialNotification"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
