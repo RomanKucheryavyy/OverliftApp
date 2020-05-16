@@ -27,13 +27,35 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An activity for showing all the users in the  social tab.
+ * @author Ilya Bokov
+ * @Version May 15, 2020
+ */
 public class SocialActivity extends AppCompatActivity {
-
+    /**
+     * Name of the node in Firebase realtime database.
+     */
     public static final String NODE_USERS = "users";
+
+    /**
+     * Firebase authorization.
+     */
     private FirebaseAuth mAuth;
+
+    /**
+     * A list of all the Users.
+     */
     private List<UserSocial> userList;
 
+    /**
+     * A basic recyclerView used to help display all the users.
+     */
     private RecyclerView recyclerView;
+
+    /**
+     * Progress bar that shows up while the users are being loaded from the database.
+     */
     private ProgressBar progressBar;
 
     @Override
@@ -62,6 +84,10 @@ public class SocialActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Helper method that uses recyclerView and access the FirebaseDatabase to load all the
+     * users into the activity.
+     */
     private void loadUsers() {
         progressBar.setVisibility(View.VISIBLE);
         userList = new ArrayList<>();
@@ -96,7 +122,10 @@ public class SocialActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * onStart method that checks if the user is log in or not.
+     * First time users will always see the login screen.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -110,6 +139,10 @@ public class SocialActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Saves the unique token that is generated when the user logs in.
+     * @param token The unique token.
+     */
     private void saveToken(String token) {
         String email = mAuth.getCurrentUser().getEmail();
 

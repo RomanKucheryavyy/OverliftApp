@@ -7,8 +7,19 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+/**
+ * Helps the notifications to be built using the NotificationCompact.
+ * @author Ilya Bokov
+ * @version May 15, 2020
+ */
 public class NotificationHelper {
 
+    /**
+     * Displays the notification
+     * @param context the context.
+     * @param title title of the notification
+     * @param body body of the notification
+     */
     public static void displayNotification(Context context, String title, String body) {
 
         Intent intent = new Intent(context, SocialActivity.class);

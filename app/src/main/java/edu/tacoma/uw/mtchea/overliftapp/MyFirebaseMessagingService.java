@@ -5,8 +5,18 @@ import androidx.annotation.NonNull;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+/**
+ * Base class for receiving messages from Firebase Cloud Messaging.
+ * Helps to automatically display messages/notifications.
+ * @author Ilya Bokov
+ * @version May 14, 2020
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    /**
+     * What happens when a message is received.
+     * @param remoteMessage the message that came in.
+     */
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -17,8 +27,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationHelper.displayNotification(getApplicationContext(), title, body);
         }
-
-
 
     }
 }

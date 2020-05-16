@@ -18,9 +18,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * The main class that sends the notification to another phone.
+ * @author Ilya Bokov
+ * @version May 15, 2020
+ */
 public class SendNotificationActivity extends AppCompatActivity {
-
+    /**
+     * The user email.
+     */
     private TextView textViewUser;
+
+    /**
+     * The notification/message title and body fields.
+     */
     private EditText editTextTitle, editTextBody;
 
     @Override
@@ -46,6 +57,11 @@ public class SendNotificationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Receives a user email and checks if the fields like title and body are not empty.
+     * Then uses REST API that I created to connect to Firebase and send the notification over.
+     * @param user the user's email being passed in.
+     */
     private void sendNotification(UserSocial user) {
         String title = editTextTitle.getText().toString().trim();
         String body = editTextBody.getText().toString().trim();
@@ -67,6 +83,7 @@ public class SendNotificationActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        // The rest api
         Api api = retrofit.create(Api.class);
 
         Call<ResponseBody> call = api.sendNotification(user.token, title, body);

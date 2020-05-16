@@ -3,8 +3,6 @@ package edu.tacoma.uw.mtchea.overliftapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,32 +21,51 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.android.material.bottomnavigation.BottomNavigationView;
-//import com.google.firebase.iid.FirebaseInstanceId;
-//import com.google.firebase.iid.InstanceIdResult;
 
+
+/**
+ * The main Social Notification Tab that contains the user log in.
+ * To use the social tab and send messages/notifications to other people
+ * initial sign up/log in is required.
+ * @author Ilya Bokov
+ * @version May 11, 2020
+ */
 public class SocialNotification extends AppCompatActivity {
-
-    // Notification Channel
-    // Notification Builder
-    // Notification Manager
-
+    /**
+     * Channel ID Used for creation of NotificationChannel.
+     */
     public static final String CHANNEL_ID = "Outlift_social";
+
+    /**
+     * Channel Name Used for creation of NotificationChannel.
+     */
     private static final String CHANNEL_NAME = "Outlift social channel name";
+
+    /**
+     * Channel Description Used for creation of NotificationChannel.
+     */
     private static final String CHANNEL_DESC = "Outlift Social Notification";
 
+    /**
+     * EditText fields for Email and Password.
+     */
     private EditText editTextEmail, editTextPassword;
+
+    /**
+     * Progress bar while the user is being signed up.
+     */
     private ProgressBar progressBar;
 
+    /**
+     * Firebase authorization required to signing/signup into Firebase.
+     */
     private FirebaseAuth mAuth;
 
-
-
+    /**
+     * Creates navigationbar,
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +73,8 @@ public class SocialNotification extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Notification");
+
+        // The navigation bar that lists all the tabs on the bottom.
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,8 +111,10 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
+        // Gets the authorization from Firebase.
         mAuth = FirebaseAuth.getInstance();
 
+        // Creates the NotificatonChannel used to display the notification.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESC);
