@@ -17,7 +17,7 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link WorkoutListActivity}
+ * This fragment is either contained in a {@link ExerciseListActivity}
  * in two-pane mode (on tablets) or a {@link ExerciseDetailActivity}
  * on handsets.
  */

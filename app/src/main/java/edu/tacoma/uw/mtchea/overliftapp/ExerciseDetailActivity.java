@@ -29,7 +29,7 @@ import java.net.URL;
  * An activity representing a single Item detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link WorkoutListActivity}.
+ * in a {@link ExerciseListActivity}.
  */
 public class ExerciseDetailActivity extends AppCompatActivity  {
     public static final String ADD_COURSE = "Add_COURSE";
@@ -94,7 +94,7 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, WorkoutListActivity.class));
+            navigateUpTo(new Intent(this, ExerciseListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

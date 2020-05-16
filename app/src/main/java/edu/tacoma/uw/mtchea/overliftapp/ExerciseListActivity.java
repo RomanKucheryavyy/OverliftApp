@@ -43,7 +43,7 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class WorkoutListActivity extends AppCompatActivity {
+public class ExerciseListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -72,29 +72,29 @@ public class WorkoutListActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
-                        Toast.makeText(WorkoutListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(WorkoutListActivity.this
-                                , WorkoutListActivity.class);
+                        Toast.makeText(ExerciseListActivity.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ExerciseListActivity.this
+                                , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
-                        Toast.makeText(WorkoutListActivity.this, "health", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExerciseListActivity.this, "health", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.page_3:
-                        Toast.makeText(WorkoutListActivity.this, "workout", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExerciseListActivity.this, "workout", Toast.LENGTH_SHORT).show();
                         //Context context = bottomNavigationView.getContext();
-                        Intent intent3 = new Intent(WorkoutListActivity.this
+                        Intent intent3 = new Intent(ExerciseListActivity.this
                                 , MainActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.page_4:
-                        Toast.makeText(WorkoutListActivity.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(WorkoutListActivity.this, SocialNotification.class);
+                        Toast.makeText(ExerciseListActivity.this, "social", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(ExerciseListActivity.this, SocialNotification.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
-                        Toast.makeText(WorkoutListActivity.this, "profile", Toast.LENGTH_SHORT).show();
-                        Intent intent5 = new Intent(WorkoutListActivity.this, ProfileActivity.class);
+                        Toast.makeText(ExerciseListActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(ExerciseListActivity.this, ProfileActivity.class);
                         startActivity(intent5);
                         break;
                 }
@@ -156,7 +156,7 @@ public class WorkoutListActivity extends AppCompatActivity {
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final WorkoutListActivity mParentActivity;
+        private final ExerciseListActivity mParentActivity;
         private final List<Exercise> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -181,7 +181,7 @@ public class WorkoutListActivity extends AppCompatActivity {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(WorkoutListActivity parent,
+        SimpleItemRecyclerViewAdapter(ExerciseListActivity parent,
                                       List<Exercise> items,
                                       boolean twoPane) {
             mValues = items;

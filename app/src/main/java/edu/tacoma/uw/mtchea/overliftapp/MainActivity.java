@@ -1,13 +1,9 @@
 package edu.tacoma.uw.mtchea.overliftapp;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import android.view.View;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -35,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.page_1:
                         Toast.makeText(MainActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this
-                                , WorkoutListActivity.class);
+                                , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:

@@ -22,8 +22,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
 //import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -91,7 +89,7 @@ public class SocialNotification extends AppCompatActivity {
                     case R.id.page_1:
                         //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SocialNotification.this
-                                , WorkoutListActivity.class);
+                                , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:

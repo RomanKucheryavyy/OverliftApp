@@ -3,7 +3,6 @@ package edu.tacoma.uw.mtchea.overliftapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.page_1:
                         Toast.makeText(ProfileActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ProfileActivity.this
-                                , WorkoutListActivity.class);
+                                , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
