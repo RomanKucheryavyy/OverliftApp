@@ -131,11 +131,13 @@ public class SocialNotification extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
+        // initializing the progress bar and email/password texts.
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.INVISIBLE);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
 
+        // Once the button is clicked it invokes the createUser method.
         findViewById(R.id.buttonSignUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,12 +145,12 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
-//        NotificationHelper.displayNotification(this, "title", "body");
-
-
-
     }
 
+    /**
+     * Create user method that receives users email and password and
+     * passes it to Firebase to register the user.
+     */
     private void createUser() {
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
@@ -171,6 +173,7 @@ public class SocialNotification extends AppCompatActivity {
             return;
         }
 
+        // Firebase creating the user.
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -191,6 +194,11 @@ public class SocialNotification extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Logs in the user and starts the SocialActivity.
+     * @param email users email that was used to register.
+     * @param password users password that was used to register.
+     */
     private void userLogin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -207,6 +215,10 @@ public class SocialNotification extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Checks if the user is already signed in.
+     * If the user in not signed in send him to the login.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -218,6 +230,9 @@ public class SocialNotification extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts the social activity.
+     */
     private void startSocialActivity() {
         Intent intent = new Intent(this, SocialActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
