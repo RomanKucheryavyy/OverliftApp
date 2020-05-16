@@ -34,6 +34,7 @@ import java.util.List;
 
 import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 
+
 /**
  * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
