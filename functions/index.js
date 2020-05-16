@@ -1,16 +1,5 @@
 const functions = require('firebase-functions');
 
-// The Firebase Admin SDK to access the Firebase Realtime Database.
-// var admin = require('firebase-admin');
-
-// var refreshToken; // Get refresh token from OAuth2 flow
-
-// admin.initializeApp({
-//   credential: admin.credential.refreshToken(refreshToken),
-//   databaseURL: 'https://overliftapp.firebaseio.com'
-// });
-
-
 var { google } = require('googleapis')
 var MESSASGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging"
 var SCOPES = [MESSASGING_SCOPE, "https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/firebase.database", "https://www.googleapis.com/auth/userinfo.email"]
