@@ -26,10 +26,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * An activity representing a single Item detail screen. This
- * activity is only used on narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link ExerciseListActivity}.
+ *
+ * Exercises detail activity for creating the display where the details about our exercise will be held in
+ * code snippets provided by Menaka Abraham, webcourses lab
  */
 public class ExerciseDetailActivity extends AppCompatActivity  {
     public static final String ADD_COURSE = "Add_COURSE";

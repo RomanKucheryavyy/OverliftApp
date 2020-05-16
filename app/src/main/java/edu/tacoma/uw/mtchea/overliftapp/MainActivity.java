@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
+/**
+ * Main Activity for displaying workouts code snippets provided by Menaka Abraham, webcourses lab
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
