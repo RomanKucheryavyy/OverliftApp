@@ -13,12 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Adapter class that helps bridge objects between AdapterView and the data thats being passed
+ * into the View.
+ */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
 
     private final Context context;
     private final List<UserSocial> userSocialList;
 
+    /**
+     * Receives the Social View
+     * @param context
+     * @param userSocialList
+     */
     public UserAdapter(Context context, List<UserSocial> userSocialList) {
         this.context = context;
         this.userSocialList = userSocialList;
