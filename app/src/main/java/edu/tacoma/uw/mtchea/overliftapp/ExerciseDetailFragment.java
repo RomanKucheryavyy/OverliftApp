@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import android.app.Activity;
@@ -17,6 +24,8 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
 /**
  * Exercise detail fragment is where the details about a certain exercise will be held and displayed in for a user to look up and later be
  * able to add that exercise into his or her workout.
+ * @author Roman, Ross
+ * @version May 15, 2020
  */
 public class ExerciseDetailFragment extends Fragment {
     /**

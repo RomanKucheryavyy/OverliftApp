@@ -1,3 +1,9 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import android.content.Intent;
@@ -29,6 +35,7 @@ import java.net.URL;
  *
  * Exercises detail activity for creating the display where the details about our exercise will be held in
  * code snippets provided by Menaka Abraham, webcourses lab
+ * @author Roman, Ross
  */
 public class ExerciseDetailActivity extends AppCompatActivity  {
     public static final String ADD_COURSE = "Add_COURSE";

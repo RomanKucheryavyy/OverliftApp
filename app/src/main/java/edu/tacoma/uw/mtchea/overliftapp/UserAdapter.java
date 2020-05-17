@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import android.content.Context;
@@ -16,6 +23,8 @@ import java.util.List;
 /**
  * Adapter class that helps bridge objects between AdapterView and the data thats being passed
  * into the View.
+ * @author Ilya Bokov
+ * @version  May 15, 2020
  */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 

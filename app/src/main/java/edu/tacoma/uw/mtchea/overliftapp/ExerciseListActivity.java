@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import android.content.Context;
@@ -42,6 +49,8 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Exercise;
  * lead to a { CourseDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
+ * @author Roman
+ * @Version May 15, 2020
  */
 public class ExerciseListActivity extends AppCompatActivity {
 

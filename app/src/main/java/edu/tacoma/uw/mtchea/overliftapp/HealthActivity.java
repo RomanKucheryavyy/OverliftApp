@@ -1,3 +1,11 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import androidx.annotation.NonNull;
@@ -13,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Health/Diet activity class
+ * @author Roman Ross
+ * @version May 15, 2020
  */
 public class HealthActivity extends AppCompatActivity {
 

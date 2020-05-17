@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import androidx.annotation.NonNull;

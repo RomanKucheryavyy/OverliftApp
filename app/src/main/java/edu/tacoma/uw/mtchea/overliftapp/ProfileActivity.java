@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import androidx.annotation.NonNull;
@@ -12,6 +19,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Profile Tab
+ * @author Mercedes Chea
+ * @version May 15, 2020
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     @Override

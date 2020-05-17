@@ -1,3 +1,10 @@
+/**
+ * Overlift App
+ * Ross, Roman, Ilya, Mercedes
+ * Group 2
+ * TCSS 450
+ */
+
 package edu.tacoma.uw.mtchea.overliftapp;
 
 import androidx.annotation.NonNull;
@@ -13,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Main Activity for displaying workouts code snippets provided by Menaka Abraham, webcourses lab
+ * @author Ilya, Roman, Ross, Mercedes
+ * @version May 15, 2020
  */
 public class MainActivity extends AppCompatActivity {
     /**
