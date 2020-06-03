@@ -15,9 +15,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * Health/Diet activity class
@@ -30,6 +33,49 @@ public class HealthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        Button mealButton = (Button) findViewById(R.id.mealButton);
+        mealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchMealAddFragment();
+
+            }
+        });
+        
+        Button caloriesButton = (Button) findViewById(R.id.calories_button);
+        caloriesButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                snackbarCalories();
+            }
+        });
+
+        Button proteinButton = (Button) findViewById(R.id.protein_button);
+        proteinButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                snackbarProtein();
+            }
+        });
+
+        Button fatsButton = (Button) findViewById(R.id.fats_button);
+        fatsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                snackbarFats();
+            }
+        });
+
+        Button carbsButton = (Button) findViewById(R.id.carbs_button);
+        carbsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                snackbarCarbs();
+            }
+        });
+        
+
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.page_2);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,5 +115,26 @@ public class HealthActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void snackbarCalories() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.health),"Daily recommended 2500 calories", Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
+    }
+    private void snackbarProtein() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.health),"Daily recommended Male: 56 grams, Female: 46 grams", Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
+    }
+    private void snackbarFats() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.health),"Daily recommended 44-74 grams of fat", Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
+    }
+    private void snackbarCarbs() {
+        Snackbar.make(findViewById(R.id.health), "Daily recommended 225 - 325 grams of carbohydrates",
+                Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+    private void launchMealAddFragment() {
     }
 }

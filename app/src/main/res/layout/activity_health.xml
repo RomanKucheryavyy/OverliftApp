@@ -62,6 +62,7 @@
             app:itemBackground="@color/white"
             app:menu="@menu/bottom_navigation_menu" />
 
+
     </LinearLayout>
 
     <FrameLayout
@@ -71,7 +72,112 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="540dp">
+
+            <Button
+                android:id="@+id/calories_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+
+                android:background="@drawable/rounded_button"
+                android:text="@string/_1800_2500"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/fats_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignRight="@id/mealButton"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="159dp"
+                android:layout_marginLeft="159dp"
+                android:layout_marginTop="327dp"
+                android:layout_marginRight="-12dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/fats"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/protein_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="43dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/protein"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/carbs_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_above="@id/calories_button"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="151dp"
+                android:layout_marginLeft="151dp"
+                android:layout_marginBottom="61dp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/carbs"
+                android:textColor="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/editQuantityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="358dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/quantity"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editProteinsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="265dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/amount_of_protein"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editCarbsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="311dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/amount_of_carbs"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,13 +185,77 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="140dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="150dp"
-                android:text="Track Your Diet: "
+                android:layout_marginStart="43dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="86dp"
+                android:text="@string/track_your_diet"
                 android:textAllCaps="false"
                 android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editFoodText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="127dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/name_of_food"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editFatsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="218dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/amount_of_fats"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editCaloriesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="172dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/amount_of_calories"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/mealButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="227dp"
+                android:layout_marginEnd="43dp"
+                android:layout_marginRight="43dp"
+                android:background="@drawable/rounded_button"
+                android:text="Add Meal"
+                android:textColor="@color/colorPrimary" />
+
         </RelativeLayout>
+
+
+
+
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
