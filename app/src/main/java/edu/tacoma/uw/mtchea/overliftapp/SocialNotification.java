@@ -213,7 +213,7 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            startMainActivity();
+                            startProfileActivity();
                         } else {
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 userLogin(email, password);
@@ -283,10 +283,23 @@ public class SocialNotification extends AppCompatActivity {
     }
 
     /**
-     * Starts the social activity.
+     * Starts the main activity.
      */
     private void startMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    /**
+     * Starts the profile activity.
+     */
+    private void startProfileActivity() {
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("userEmail", email);
+        intent.putExtra("userPassword", password);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

@@ -83,6 +83,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        Intent incomingLoginIntent = getIntent();
+        String userEmail = incomingLoginIntent.getStringExtra("userEmail");
+        String userPassword = incomingLoginIntent.getStringExtra("userPassword");
+
 
 //        mAuth = FirebaseAuth.getInstance();
 //
