@@ -224,6 +224,8 @@ public class SocialNotification extends AppCompatActivity {
                 });
     }
 
+
+
     /**
      * Checks if the user is already signed in.
      * If the user in not signed in send him to the login.
