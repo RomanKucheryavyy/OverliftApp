@@ -12,4 +12,15 @@
     <string name="weight">Weight</string>
     <string name="please_enter_your_height">Please enter your height</string>
     <string name="desc" />
+    <string name="_1800_2500">1800/2500</string>
+    <string name="track_your_diet">Track Your Diet:</string>
+    <string name="amount_of_fats">Amount of Fats</string>
+    <string name="name_of_food">Name of Food</string>
+    <string name="amount_of_calories">Amount of Calories</string>
+    <string name="amount_of_carbs">Amount of Carbs</string>
+    <string name="amount_of_protein">Amount of Protein</string>
+    <string name="quantity">Quantity</string>
+    <string name="fats">Fats</string>
+    <string name="protein">proteins</string>
+    <string name="carbs">carbs</string>>
 </resources>
