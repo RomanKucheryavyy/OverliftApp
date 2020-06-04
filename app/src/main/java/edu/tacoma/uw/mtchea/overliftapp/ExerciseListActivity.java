@@ -115,7 +115,7 @@ public class ExerciseListActivity extends AppCompatActivity {
 //                        bottomNavigationView.setSelected(false);
 //                        bottomNavigationView.setSelectedItemId(R.id.page_4);
                         Toast.makeText(ExerciseListActivity.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(ExerciseListActivity.this, SocialNotification.class);
+                        Intent intent4 = new Intent(ExerciseListActivity.this, SocialActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:

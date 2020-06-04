@@ -95,7 +95,7 @@ public class SendNotificationActivity extends AppCompatActivity {
                         break;
                     case R.id.page_4:
                         //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(SendNotificationActivity.this, SocialNotification.class);
+                        Intent intent4 = new Intent(SendNotificationActivity.this, SocialActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:

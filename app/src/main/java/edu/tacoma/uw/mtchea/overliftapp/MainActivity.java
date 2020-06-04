@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 //                        bottomNavigationView.setSelected(false);
 //                        bottomNavigationView.setSelectedItemId(R.id.page_4);
                         Toast.makeText(MainActivity.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(MainActivity.this, SocialNotification.class);
+                        Intent intent4 = new Intent(MainActivity.this, SocialActivity.class);
                         startActivity(intent4);
 
                         break;
