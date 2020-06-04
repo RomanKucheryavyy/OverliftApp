@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OverliftApp</string>
+    <string name="app_name">Overlift</string>
     <string name="today_s_workout">Today\'s Workout:</string>
     <string name="this_is_the_profile_activity">This is the Profile Activity</string>
     <string name="name">Name</string>
@@ -22,5 +22,8 @@
     <string name="quantity">Quantity</string>
     <string name="fats">Fats</string>
     <string name="protein">proteins</string>
-    <string name="carbs">carbs</string>>
+    <string name="carbs">carbs</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>>
 </resources>
