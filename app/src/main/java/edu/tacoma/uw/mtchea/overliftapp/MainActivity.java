@@ -13,7 +13,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +31,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * @version May 15, 2020
  */
 public class MainActivity extends AppCompatActivity {
+
+    Button buttonStart, buttonStop;
+    TextView timer;
+    Handler customHandler = new Handler();
+    RelativeLayout container;
+
+    long startTime = 0L, timeInSeconds = 0L, updateTime = 0L, timeSwapBuff = 0L, timeInMilliseconds = 0L;
+
+    Runnable updateTimerThread = new Runnable() {
+        @Override
+        public void run() {
+            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            updateTime = timeSwapBuff + timeInMilliseconds;
+            int secs = (int) (updateTime/1000);
+            int mins = secs/60;
+            secs%=60;
+            int milliseconds = (int) (updateTime%1000);
+            timer.setText(""+mins+":"+String.format("%2d",secs)+":"+String.format("%3d",milliseconds));
+            customHandler.postDelayed(this, 0);
+        }
+    };
+
     /**
      * on create method for main activity, currently only going to display "Today's Workout"
      * @param savedInstanceState
@@ -32,6 +61,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        buttonStart = (Button) findViewById(R.id.buttonStart);
+        buttonStop = (Button) findViewById(R.id.buttonStop);
+        timer = (TextView) findViewById(R.id.timer);
+        container = (RelativeLayout) findViewById(R.id.container);
+
+
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTime = SystemClock.uptimeMillis();
+                customHandler.postDelayed(updateTimerThread, 0);
+            }
+        });
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeSwapBuff += timeInMilliseconds;
+                customHandler.removeCallbacks(updateTimerThread);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
