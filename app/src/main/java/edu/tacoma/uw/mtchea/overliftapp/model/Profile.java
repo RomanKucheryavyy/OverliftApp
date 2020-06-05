@@ -37,18 +37,46 @@ public class Profile {
     /**
      * User age
      */
-    private String mAge;
+    private int mAge;
 
     /**
      * User age
      */
     private String mPassword;
 
+    /**
+     * User name
+     */
     public static final String NAME = "name";
+
+    /**
+     * User email
+     */
     public static final String EMAIL = "email";
+
+    /**
+     * User height
+     */
     public static final String HEIGHT = "height";
+
+    /**
+     * User weight
+     */
     public static final String WEIGHT = "bodyweight";
+
+    /**
+     * User age
+     */
     public static final String AGE = "age";
+
+    /**
+     * User gender
+     */
+    public static final String GENDER = "gender";
+
+    /**
+     * User password
+     */
     public static final String PASSWORD = "password";
 
     /**
@@ -60,42 +88,43 @@ public class Profile {
      * @param s5 user age
      * @param s6 user password
      */
-     public Profile(String s1, String s2, String s3, String s4, String s5, String s6){
+     public Profile(String s1, String s2, String s3, String s4, String s5, int s6, String s7){
         mName = s1;
         mEmail = s2;
         mHeight = s3;
         mWeight = s4;
-        mAge = s5;
-        mPassword = s6;
+        mGender = s5;
+        mAge = s6;
+        mPassword = s7;
     }
 
     /**
-     * Gets user's gender
-     * @return user gender
+     * Gets user's name
+     * @return user name
      */
     public String getName() {
         return mName;
     }
 
     /**
-     * Sets user's gender
-     * @param mName user gender
+     * Sets user's name
+     * @param mName user name
      */
     public void setName(String mName) {
         this.mName = mName;
     }
 
     /**
-     * Gets user's gender
-     * @return user gender
+     * Gets user's email
+     * @return user email
      */
     public String getEmail() {
         return mEmail;
     }
 
     /**
-     * Sets user's gender
-     * @param mEmail user gender
+     * Sets user's email
+     * @param mEmail user email
      */
     public void setEmail(String mEmail) {
         this.mEmail = mEmail;
@@ -105,7 +134,7 @@ public class Profile {
      * Gets user's age
      * @return user age
      */
-    public String getAge() {
+    public int getAge() {
         return mAge;
     }
 
@@ -113,7 +142,7 @@ public class Profile {
      * Sets user's age
      * @param mAge user age
      */
-    public void setAge(String mAge) {
+    public void setAge(int mAge) {
         this.mAge = mAge;
     }
 
@@ -166,6 +195,22 @@ public class Profile {
     }
 
     /**
+     * Gets user's gender
+     * @return user gender
+     */
+    public String getGender() {
+        return mGender;
+    }
+
+    /**
+     * Sets user's gender
+     * @param mGender user gender
+     */
+    public void setGender(String mGender) {
+        this.mGender = mGender;
+    }
+
+    /**
      * Parse json for profiles
      * @param courseJson json
      * @return a list of profiles
@@ -180,8 +225,8 @@ public class Profile {
             for(int i = 0; i < arr.length(); i++){
                 JSONObject obj = arr.getJSONObject(i);
                 Profile profile = new Profile(obj.getString(Profile.NAME), obj.getString(Profile.EMAIL),
-                        obj.getString(Profile.HEIGHT), obj.getString(Profile.WEIGHT),
-                        obj.getString(Profile.AGE), obj.getString(Profile.PASSWORD)
+                        obj.getString(Profile.HEIGHT), obj.getString(Profile.WEIGHT), obj.getString(Profile.GENDER),
+                        obj.getInt(Profile.AGE), obj.getString(Profile.PASSWORD)
                        );
                 profileList.add(profile);
 

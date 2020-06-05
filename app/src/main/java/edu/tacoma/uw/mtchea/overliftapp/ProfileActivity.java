@@ -19,9 +19,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,6 +40,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.tacoma.uw.mtchea.overliftapp.model.Meal;
 import edu.tacoma.uw.mtchea.overliftapp.model.Profile;
 
 /**
@@ -45,10 +51,19 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Profile;
 public class ProfileActivity extends AppCompatActivity {
 
     /**
-     *
+     * Profile String
      */
     public static final String ADD_PROFILE = "ADD_PROFILE";
+
+    /**
+     * JSON Object for sending data
+     */
     private JSONObject mCourseJSON;
+
+    /**
+     * Button for updating profile
+     */
+    public Button updateButton;
 
     /**
      * Firebase authorization required to signing/signup into Firebase.
@@ -62,6 +77,46 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
+
+        updateButton = (Button) findViewById(R.id.update_button);
+        updateButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                snackbarUpdate();
+            }
+        });
+
+        final EditText editGender = findViewById(R.id.editGenderText);
+        final EditText editHeight = findViewById(R.id.editHeightText);
+        final EditText editWeight = findViewById(R.id.editWeightText);
+        final EditText editAge = findViewById(R.id.editAgeText);
+
+//        Button mealButton = (Button) findViewById(R.id.mealButton);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String gender = editGender.getText().toString();
+                System.out.println(gender);
+                String height = editHeight.getText().toString();
+                System.out.println(height);
+                String weight = editWeight.getText().toString();
+                System.out.println(weight);
+                System.out.println("SHOULD PRINT AFTER THIS");
+                System.out.println(editAge.getText());
+                int age = Integer.parseInt(editAge.getText().toString());
+                System.out.println(age);
+                Profile profile = new Profile("Cedes", "mtchea@uw.edu", height, weight, gender, age, "newpassword");
+                addProfile(profile);
+
+                new ProfileTask().execute(getString(R.string.add_profile));
+//                if (mAddListener != null) {
+//                    mAddListener.addCourse(meal);
+//                }
+                //launchMealAddFragment();
+
+            }
+        });
+
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.page_5);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -114,6 +169,10 @@ public class ProfileActivity extends AppCompatActivity {
 //        String UID = user.getUid();
     }
 
+    private void snackbarUpdate() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.health),"Profile has been updated", Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -140,20 +199,20 @@ public class ProfileActivity extends AppCompatActivity {
         //Construct a JSONObject to build a formatted message to send.
         mCourseJSON = new JSONObject();
         try {
-            mCourseJSON.put(Profile.NAME, profile.getName());
-            mCourseJSON.put(Profile.EMAIL, profile.getEmail());
+            mCourseJSON.put(Profile.NAME, "Cedes");
+            mCourseJSON.put(Profile.EMAIL, "mtchea@uw.edu");
             mCourseJSON.put(Profile.HEIGHT, profile.getHeight());
             mCourseJSON.put(Profile.WEIGHT, profile.getWeight());
             mCourseJSON.put(Profile.AGE, profile.getAge());
-            mCourseJSON.put(Profile.PASSWORD, profile.getPassword());
-            new AddCourseAsyncTask().execute(url.toString());
+            mCourseJSON.put(Profile.PASSWORD, "newpassword");
+            new ProfileTask().execute(url.toString());
         } catch (JSONException e) {
             Toast.makeText(this, "Error with JSON creation on adding a course: " + e.getMessage()
                     , Toast.LENGTH_SHORT).show();
         }
     }
 
-    private class AddCourseAsyncTask extends AsyncTask<String, Void, String> {
+    private class ProfileTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -204,6 +263,8 @@ public class ProfileActivity extends AppCompatActivity {
                 if (jsonObject.getBoolean("success")) {
                     Toast.makeText(getApplicationContext(), "Profile Added successfully"
                             , Toast.LENGTH_SHORT).show();
+//                    EditText editText = (EditText)findViewById(R.id.editGenderText);
+//                    editText.setText(getGender(), TextView.BufferType.EDITABLE);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Profile couldn't be added: "

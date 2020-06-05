@@ -10,27 +10,30 @@ import java.util.List;
 
 public class Meal implements Serializable {
     private String mFoodName;
-    private String mCalories;
-    private String mFats;
-    private String mCarbs;
-    private String mProteins;
-    private String mQuantity;
+    private int mCalories;
+    private int mFats;
+    private int mCarbs;
+    private int mProteins;
+    private int mQuantity;
+    private String mEmail;
 
-    public static final String NAME = "foodname";
+    public static final String NAME = "foodName";
     public static final String CALORIES = "calories";
     public static final String FATS = "fats";
     public static final String CARBS = "carbs";
     public static final String PROTEINS = "proteins";
     public static final String QUANTITY = "quantity";
+    public static final String EMAIL = "email";
 
-    public Meal(String s1, String s2, String s3, String s4, String s5, String s6){
+    public Meal(int s1, int s2, int s3, int s4, String s5, int s6, String s7){
 
-        mFoodName = s1;
-        mCalories = s2;
+        mFoodName = s5;
+        mCalories = s1;
         mFats = s3;
-        mCarbs = s4;
-        mProteins = s5;
+        mCarbs = s2;
+        mProteins = s4;
         mQuantity = s6;
+        mEmail = s7;
 
     }
 
@@ -42,55 +45,53 @@ public class Meal implements Serializable {
         this.mFoodName = mFoodId;
     }
 
-    public String getCalories() {
+    public int getCalories() {
         return mCalories;
     }
 
-    public void setCalories(String mCalories) {
+    public void setCalories(int mCalories) {
         this.mCalories = mCalories;
     }
 
-    public String getFats() {
+    public int getFats() {
         return mFats;
     }
 
-    public void setFats(String mFats) {
+    public void setFats(int mFats) {
         this.mFats = mFats;
     }
 
-    public String getCarbs() {
+    public int getCarbs() {
         return mCarbs;
     }
-    public void setCarbs(String mCarbs) {
+    public void setCarbs(int mCarbs) {
         this.mCarbs = mCarbs;
     }
 
-    public String getProteins() {
+    public int getProteins() {
         return mProteins;
     }
-    public void setmProteins(String mProteins) {
+    public void setmProteins(int mProteins) {
         this.mProteins = mProteins;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return mQuantity;
     }
-    public void setQuantity(String mQuantity) {
+    public void setQuantity(int mQuantity) {
         this.mQuantity = mQuantity;
     }
 
-    public static List<Meal> parseCourseJson(String courseJson) throws JSONException {
+    public static List<Meal> parseCourseJson(String mealJson) throws JSONException {
         List<Meal> mealList = new ArrayList<>();
-        if(courseJson != null){
+        if(mealJson != null){
 
-            JSONArray arr = new JSONArray(courseJson);
-
+            JSONArray arr = new JSONArray(mealJson);
             for(int i = 0; i < arr.length(); i++){
                 JSONObject obj = arr.getJSONObject(i);
-                Meal meal = new Meal(obj.getString(Meal.NAME), obj.getString(Meal.CALORIES),
-                        obj.getString(Meal.CARBS), obj.getString(Meal.FATS),obj.getString(Meal.PROTEINS),obj.getString(Meal.QUANTITY));
+                Meal meal = new Meal(obj.getInt("calories"), obj.getInt("carbs"), obj.getInt("fat"), obj.getInt("proteins"),
+                        obj.getString("foodname"),obj.getInt("quantity"),obj.getString("email"));
                 mealList.add(meal);
-
             }
 
         }

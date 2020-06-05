@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="get_exercises"> https://ross1998-project-backend.herokuapp.com/exercises </string>
+    <string name="add_meal"> https://ross1998-project-backend.herokuapp.com/addmeal </string>
+    <string name="get_exercises"> https://ross1998-project-backend.herokuapp.com/exercises </string>
+    <string name="get_meals"> https://ross1998-project-backend.herokuapp.com/getmeals </string>
+    <string name="add_profile"> https://ross1998-project-backend.herokuapp.com/register </string>
+
+
+
 </resources>

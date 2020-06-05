@@ -69,32 +69,32 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_photo">
 
         <EditText
+            android:id="@+id/editGenderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/please_enter_your_gender"
-            android:importantForAutofill="no"
-            android:inputType="text"></EditText>
+            android:inputType="textPersonName"></EditText>
 
         <EditText
+            android:id="@+id/editAgeText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="61dp"
             android:hint="@string/please_enter_your_age"
-            android:importantForAutofill="no"
-            android:inputType="number"></EditText>
+            android:inputType="textPersonName"></EditText>
 
         <EditText
+            android:id="@+id/editHeightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/please_enter_your_height"
-            android:importantForAutofill="no"
-            android:inputType="number"></EditText>
+            android:inputType="textPersonName"></EditText>
 
         <EditText
+            android:id="@+id/editWeightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/please_enter_your_weight"
-            android:importantForAutofill="no"
-            android:inputType="number"></EditText>
+            android:inputType="textPersonName"></EditText>
     </LinearLayout>
 
     <LinearLayout
@@ -106,31 +106,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_photo">
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/gender" />
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/age" />
 
-        <TextView
+        <EditText
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/height" />
 
-        <TextView
+        <EditText
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="13dp"
             android:text="@string/weight" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:text="update"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
