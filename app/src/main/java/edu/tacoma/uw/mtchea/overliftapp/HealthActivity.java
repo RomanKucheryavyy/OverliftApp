@@ -114,6 +114,8 @@ public class HealthActivity extends AppCompatActivity {
 
                 Meal meal = new Meal(calories, carbs, fats, proteins, foodName, quantity, "ross1998@uw.edu");
                 addMeal(meal);
+
+                new MealTask().execute(getString(R.string.get_meals));
 //                if (mAddListener != null) {
 //                    mAddListener.addCourse(meal);
 //                }
@@ -239,7 +241,7 @@ public class HealthActivity extends AppCompatActivity {
                     // For Debugging
                     //Log.i(ADD_MEAL, mCourseJSON.toString());
                     mCourseJSON = new JSONObject();
-                    mCourseJSON.put("email", "romakuch@uw.edu");
+                    mCourseJSON.put("email", "ross1998@uw.edu");
 
                     wr.write(mCourseJSON.toString());
                     System.out.println(" TESTING! " + mCourseJSON.toString());
@@ -306,7 +308,6 @@ public class HealthActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
                 System.out.println("JASSSSOOOON " + jsonObject);
                 if (jsonObject.getBoolean("success")) {
-                    System.out.println("GOOOOOOESSS HEREERERERE");
                     mMealList = Meal.parseCourseJson(
                             jsonObject.getString("names"));
                     System.out.println(mMealList);
@@ -314,7 +315,6 @@ public class HealthActivity extends AppCompatActivity {
                     for(int i = 0; i < mMealList.size(); i++){
                         temp += mMealList.get(i).getCalories();
                     }
-                    System.out.println("MY CALORIES " + temp);
                     caloriesButton.setText(temp + "/2500");
 
 //                    if (!mMealList.isEmpty()) {
