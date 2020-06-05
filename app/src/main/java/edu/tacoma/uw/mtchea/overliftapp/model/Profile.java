@@ -139,8 +139,8 @@ public class Profile {
      * Gets user's age
      * @return user age
      */
-    public int getAge() {
-        return mAge;
+    public String getAge() {
+        return Integer.toString(mAge);
     }
 
     /**

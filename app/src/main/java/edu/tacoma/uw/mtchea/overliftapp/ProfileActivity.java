@@ -77,6 +77,11 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String ageKey = "ageKey";
 
     /**
+     * Age Key for Shared Preferences
+     */
+    public static final String emailKey = "emailKey";
+
+    /**
      * String for Shared Preferences
      */
     public static final String mypreference = "mypref";
@@ -126,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
         EditText editWeight = findViewById(R.id.editWeightText);
         EditText editAge = findViewById(R.id.editAgeText);
 
+
         TextView userGender = (TextView) findViewById(R.id.editGenderText);
         TextView userHeight = (TextView) findViewById(R.id.editHeightText);
         TextView userWeight = (TextView) findViewById(R.id.editWeightText);
@@ -137,9 +143,9 @@ public class ProfileActivity extends AppCompatActivity {
             userGender.setText(mSharedPreferences.getString(genderKey, ""));
         }
 
-//        if (mSharedPreferences.contains(ageKey)) {
-//            userAge.setText(mSharedPreferences.getInt(ageKey, -1));
-//        }
+        if (mSharedPreferences.contains(ageKey)) {
+            userAge.setText(Integer.toString(mSharedPreferences.getInt(ageKey, 0)));
+        }
 
         if (mSharedPreferences.contains(heightKey)) {
             userHeight.setText(mSharedPreferences.getString(heightKey, ""));
@@ -163,7 +169,11 @@ public class ProfileActivity extends AppCompatActivity {
                 System.out.println(editAge.getText());
                 int age = Integer.parseInt(editAge.getText().toString());
                 System.out.println(age);
-                Profile profile = new Profile("Cedes", "mtchea@uw.edu", height, weight, gender, age, "newpassword");
+
+                String email = mSharedPreferences.getString(emailKey, "");
+                System.out.println(email);
+
+                Profile profile = new Profile("Cedes", email, height, weight, gender, age, "newpassword");
                 addProfile(profile);
 
 
@@ -261,6 +271,11 @@ public class ProfileActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.userLogout:
                 FirebaseAuth.getInstance().signOut();
+
+                mSharedPreferences.edit().remove(genderKey).commit();
+                mSharedPreferences.edit().remove(heightKey).commit();
+                mSharedPreferences.edit().remove(weightKey).commit();
+                mSharedPreferences.edit().remove(ageKey).commit();
                 finish();
                 startActivity(new Intent (this, SocialNotification.class));
 
@@ -274,6 +289,30 @@ public class ProfileActivity extends AppCompatActivity {
      * @param profile user's profile information
      */
     public void addProfile(Profile profile) {
+        StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
+
+        //Construct a JSONObject to build a formatted message to send.
+        mCourseJSON = new JSONObject();
+        try {
+            mCourseJSON.put(Profile.NAME, "Bob");
+            mCourseJSON.put(Profile.EMAIL, profile.getEmail());
+            mCourseJSON.put(Profile.HEIGHT, profile.getHeight());
+            mCourseJSON.put(Profile.WEIGHT, profile.getWeight());
+            mCourseJSON.put(Profile.GENDER, profile.getGender());
+            mCourseJSON.put(Profile.AGE, profile.getAge());
+            mCourseJSON.put(Profile.PASSWORD, "password");
+            new ProfileTask().execute(url.toString());
+        } catch (JSONException e) {
+            Toast.makeText(this, "Error with JSON creation on adding a course: " + e.getMessage()
+                    , Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * adds profile to database
+     * @param profile user's profile information
+     */
+    public void getProfile(Profile profile) {
         StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
 
         //Construct a JSONObject to build a formatted message to send.

@@ -14,9 +14,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +33,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
@@ -75,6 +89,48 @@ public class SocialNotification extends AppCompatActivity {
      */
     private FirebaseAuth mAuth;
 
+    private SharedPreferences mSharedPreferences;
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String emailKey = "emailKey";
+
+    /**
+     * String for Shared Preferences
+     */
+    public static final String mypreference = "mypref";
+
+    /**
+     * Gender Key for Shared Preferences
+     */
+    public static final String genderKey = "genderKey";
+
+    /**
+     * Height Key for Shared Preferences
+     */
+    public static final String heightKey = "heightKey";
+
+    /**
+     * Weight Key for Shared Preferences
+     */
+    public static final String weightKey = "weightKey";
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String ageKey = "ageKey";
+
+    /**
+     * Profile String
+     */
+    public static final String ADD_PROFILE = "ADD_PROFILE";
+
+    /**
+     * JSON Object for sending data
+     */
+    private JSONObject mCourseJSON;
+
     /**
      * Creates navigationbar,
      * @param savedInstanceState
@@ -86,7 +142,7 @@ public class SocialNotification extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Notification");
-
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 //        // The navigation bar that lists all the tabs on the bottom.
 //        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 //        bottomNavigationView.setSelectedItemId(R.id.page_4);
@@ -238,6 +294,12 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            SharedPreferences.Editor editor = mSharedPreferences.edit();
+                            editor.putString(emailKey, email).commit();
+                            StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
+                            url.append(email);
+                            new GetProfileTask().execute(url.toString());
+
                             startMainActivity();
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
@@ -302,6 +364,111 @@ public class SocialNotification extends AppCompatActivity {
         intent.putExtra("userPassword", password);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private class GetProfileTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to get user information, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+//            String response = "";
+//            HttpURLConnection urlConnection = null;
+//            for (String url : urls) {
+//                try {
+//                    URL urlObject = new URL(url);
+//                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+//                    urlConnection.setRequestMethod("POST");
+//                    urlConnection.setRequestProperty("Content-Type", "application/json");
+//                    urlConnection.setDoOutput(true);
+//                    OutputStreamWriter wr =
+//                            new OutputStreamWriter(urlConnection.getOutputStream());
+//
+//                    // For Debugging
+//                    Log.i(ADD_PROFILE, mCourseJSON.toString());
+//                    wr.write(mCourseJSON.toString());
+//                    wr.flush();
+//                    wr.close();
+//
+//                    InputStream content = urlConnection.getInputStream();
+//
+//                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+//                    String s = "";
+//                    while ((s = buffer.readLine()) != null) {
+//                        response += s;
+//                    }
+//
+//                } catch (Exception e) {
+//                    response = "Unable to add the new course, Reason: "
+//                            + e.getMessage();
+//                } finally {
+//                    if (urlConnection != null)
+//                        urlConnection.disconnect();
+//                }
+//            }
+//            return response;
+        }
+
+        /**
+         * onPostExecute method
+         * @param s String
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.startsWith("Unable to add the new course")) {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject.getBoolean("success")) {
+                    String gender = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("gender");
+                    int age = jsonObject.getJSONArray("profiles").getJSONObject(0).getInt("age");
+                    String height = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("height");
+                    String weight = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("bodyweight");
+
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
+                    editor.putString(genderKey, gender);
+                    editor.putInt(ageKey, age);
+                    editor.putString(heightKey, height);
+                    editor.putString(weightKey, weight);
+                    editor.commit();
+                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), "Failed: "
+//                                    + jsonObject.getString("error")
+//                            , Toast.LENGTH_LONG).show();
+//                    Log.e(ADD_PROFILE, jsonObject.getString("error"));
+//                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "JSON error cannot get profile"
+                                + e.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.e(ADD_PROFILE, e.getMessage());
+            }
+        }
     }
 
 }
