@@ -87,46 +87,46 @@ public class SocialNotification extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Notification");
 
-        // The navigation bar that lists all the tabs on the bottom.
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.page_4);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.page_1:
-                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SocialNotification.this
-                                , ExerciseListActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.page_2:
-                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(SocialNotification.this
-                                , HealthActivity.class);
-                        startActivity(intent2);
-                        break;
-                    case R.id.page_3:
-                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
-                        //Context context = bottomNavigationView.getContext();
-                        Intent intent3 = new Intent(SocialNotification.this
-                                , MainActivity.class);
-                        startActivity(intent3);
-                        break;
-                    case R.id.page_4:
-                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(SocialNotification.this, SocialNotification.class);
-                        startActivity(intent4);
-                        break;
-                    case R.id.page_5:
-                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
-                        Intent intent5 = new Intent(SocialNotification.this, ProfileActivity.class);
-                        startActivity(intent5);
-                        break;
-                }
-                return true;
-            }
-        });
+//        // The navigation bar that lists all the tabs on the bottom.
+//        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setSelectedItemId(R.id.page_4);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.page_1:
+//                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(SocialNotification.this
+//                                , ExerciseListActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    case R.id.page_2:
+//                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+//                        Intent intent2 = new Intent(SocialNotification.this
+//                                , HealthActivity.class);
+//                        startActivity(intent2);
+//                        break;
+//                    case R.id.page_3:
+//                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
+//                        //Context context = bottomNavigationView.getContext();
+//                        Intent intent3 = new Intent(SocialNotification.this
+//                                , MainActivity.class);
+//                        startActivity(intent3);
+//                        break;
+//                    case R.id.page_4:
+//                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
+//                        Intent intent4 = new Intent(SocialNotification.this, SocialActivity.class);
+//                        startActivity(intent4);
+//                        break;
+//                    case R.id.page_5:
+//                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
+//                        Intent intent5 = new Intent(SocialNotification.this, ProfileActivity.class);
+//                        startActivity(intent5);
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
         // Gets the authorization from Firebase.
         mAuth = FirebaseAuth.getInstance();
@@ -154,6 +154,30 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.buttonLogIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String email = editTextEmail.getText().toString().trim();
+                final String password = editTextPassword.getText().toString().trim();
+                userLogin(email, password);
+            }
+        });
+
+        findViewById(R.id.buttonResetPassword).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
+
+    }
+
+    /**
+     * A simple get method to pass through firebase authorization.
+     * @return firebase authorization.
+     */
+    public FirebaseAuth getFirebaseAuth() {
+        return mAuth;
     }
 
     /**
@@ -189,7 +213,7 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            startSocialActivity();
+                            startProfileActivity();
                         } else {
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 userLogin(email, password);
@@ -214,7 +238,7 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            startSocialActivity();
+                            startMainActivity();
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(SocialNotification.this, task.getException()
@@ -223,6 +247,25 @@ public class SocialNotification extends AppCompatActivity {
                     }
                 });
     }
+
+    private void resetPassword() {
+        final String email = editTextEmail.getText().toString().trim();
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SocialNotification.this, "Password reset link was sent to your email", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SocialNotification.this, "Reset link failed. \nPlease make sure your email is correct.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
+
+
+
 
     /**
      * Checks if the user is already signed in.
@@ -234,16 +277,29 @@ public class SocialNotification extends AppCompatActivity {
 
         // if user is not logged in send him to main login activity.
         if(mAuth.getCurrentUser() != null) {
-            startSocialActivity();
+            startMainActivity();
         }
 
     }
 
     /**
-     * Starts the social activity.
+     * Starts the main activity.
      */
-    private void startSocialActivity() {
-        Intent intent = new Intent(this, SocialActivity.class);
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    /**
+     * Starts the profile activity.
+     */
+    private void startProfileActivity() {
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("userEmail", email);
+        intent.putExtra("userPassword", password);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
