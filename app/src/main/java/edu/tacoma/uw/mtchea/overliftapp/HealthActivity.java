@@ -53,6 +53,10 @@ public class HealthActivity extends AppCompatActivity {
     public static final String ADD_MEAL = "Add_MEAL";
     private JSONObject mCourseJSON;
     public Button caloriesButton;
+    public Button fatsButton;
+    public Button carbsButton;
+    public Button proteinButton;
+
     //ExerciseDetailActivity test = new ExerciseDetailActivity();
     //public Button fatsButton = (Button) findViewById(R.id.fats_button);
     @Override
@@ -69,7 +73,7 @@ public class HealthActivity extends AppCompatActivity {
             }
         });
 
-        Button proteinButton = (Button) findViewById(R.id.protein_button);
+        proteinButton = (Button) findViewById(R.id.protein_button);
         proteinButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -77,16 +81,15 @@ public class HealthActivity extends AppCompatActivity {
             }
         });
 
-        Button fatsButton = (Button) findViewById(R.id.fats_button);
+        fatsButton = (Button) findViewById(R.id.fats_button);
         fatsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 snackbarFats();
-                fatsButton.setText(mMealList.get(1).getFats());
             }
         });
 
-        Button carbsButton = (Button) findViewById(R.id.carbs_button);
+        carbsButton = (Button) findViewById(R.id.carbs_button);
         carbsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -311,11 +314,22 @@ public class HealthActivity extends AppCompatActivity {
                     mMealList = Meal.parseCourseJson(
                             jsonObject.getString("names"));
                     System.out.println(mMealList);
-                    int temp = 0;
+                    int caloriesTemp = 0;
+                    int fatsTemp = 0;
+                    int proteinsTemp = 0;
+                    int carbsTemp = 0;
                     for(int i = 0; i < mMealList.size(); i++){
-                        temp += mMealList.get(i).getCalories();
+                        caloriesTemp += mMealList.get(i).getCalories() * mMealList.get(i).getQuantity();
+                        fatsTemp += mMealList.get(i).getFats() * mMealList.get(i).getQuantity();
+                        proteinsTemp += mMealList.get(i).getProteins() * mMealList.get(i).getQuantity();
+                        carbsTemp += mMealList.get(i).getCarbs() * mMealList.get(i).getQuantity();
+
                     }
-                    caloriesButton.setText(temp + "/2500");
+                    caloriesButton.setText(caloriesTemp + "/2500");
+                    fatsButton.setText("Fats\n" + fatsTemp + "(g)");
+                    proteinButton.setText("Protein\n" + proteinsTemp + "(g)");
+                    carbsButton.setText("Carbs\n" + carbsTemp + "(g)");
+
 
 //                    if (!mMealList.isEmpty()) {
 //                        setupRecyclerView((RecyclerView) mRecyclerView);
