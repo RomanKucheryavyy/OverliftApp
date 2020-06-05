@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,31 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String ADD_PROFILE = "ADD_PROFILE";
 
     /**
+     * Gender Key for Shared Preferences
+     */
+    public static final String genderKey = "genderKey";
+
+    /**
+     * Height Key for Shared Preferences
+     */
+    public static final String heightKey = "heightKey";
+
+    /**
+     * Weight Key for Shared Preferences
+     */
+    public static final String weightKey = "weightKey";
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String ageKey = "ageKey";
+
+    /**
+     * String for Shared Preferences
+     */
+    public static final String mypreference = "mypref";
+
+    /**
      * JSON Object for sending data
      */
     private JSONObject mCourseJSON;
@@ -70,6 +96,15 @@ public class ProfileActivity extends AppCompatActivity {
      */
     private FirebaseAuth mAuth;
 
+    /**
+     * Shared preferences to save state
+     */
+    private SharedPreferences mSharedPreferences; // 0 - for private mode
+
+    /**
+     * onCreate method for Profile Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,15 +121,38 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        final EditText editGender = findViewById(R.id.editGenderText);
-        final EditText editHeight = findViewById(R.id.editHeightText);
-        final EditText editWeight = findViewById(R.id.editWeightText);
-        final EditText editAge = findViewById(R.id.editAgeText);
+        EditText editGender = findViewById(R.id.editGenderText);
+        EditText editHeight = findViewById(R.id.editHeightText);
+        EditText editWeight = findViewById(R.id.editWeightText);
+        EditText editAge = findViewById(R.id.editAgeText);
 
-//        Button mealButton = (Button) findViewById(R.id.mealButton);
+        TextView userGender = (TextView) findViewById(R.id.editGenderText);
+        TextView userHeight = (TextView) findViewById(R.id.editHeightText);
+        TextView userWeight = (TextView) findViewById(R.id.editWeightText);
+        TextView userAge = (TextView) findViewById(R.id.editAgeText);
+
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+        if (mSharedPreferences.contains(genderKey)) {
+            userGender.setText(mSharedPreferences.getString(genderKey, ""));
+        }
+
+//        if (mSharedPreferences.contains(ageKey)) {
+//            userAge.setText(mSharedPreferences.getInt(ageKey, -1));
+//        }
+
+        if (mSharedPreferences.contains(heightKey)) {
+            userHeight.setText(mSharedPreferences.getString(heightKey, ""));
+        }
+
+        if (mSharedPreferences.contains(weightKey)) {
+            userWeight.setText(mSharedPreferences.getString(weightKey, ""));
+        }
+
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // adds profile data to database
                 String gender = editGender.getText().toString();
                 System.out.println(gender);
                 String height = editHeight.getText().toString();
@@ -108,12 +166,32 @@ public class ProfileActivity extends AppCompatActivity {
                 Profile profile = new Profile("Cedes", "mtchea@uw.edu", height, weight, gender, age, "newpassword");
                 addProfile(profile);
 
-                new ProfileTask().execute(getString(R.string.add_profile));
-//                if (mAddListener != null) {
-//                    mAddListener.addCourse(meal);
-//                }
-                //launchMealAddFragment();
 
+                // saves profile data using shared preferences
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.putString(genderKey, gender);
+                editor.putString(heightKey, height);
+                editor.putString(weightKey, weight);
+                editor.putInt(ageKey, age);
+                editor.commit();
+
+                mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+                if (mSharedPreferences.contains(genderKey)) {
+                    userGender.setText(mSharedPreferences.getString(genderKey, ""));
+                }
+
+//        if (mSharedPreferences.contains(ageKey)) {
+//            userAge.setText(mSharedPreferences.getInt(ageKey, -1));
+//        }
+
+//                if (mSharedPreferences.contains(heightKey)) {
+//                    userHeight.setText(mSharedPreferences.getString(heightKey, ""));
+//                }
+//
+//                if (mSharedPreferences.contains(weightKey)) {
+//                    userWeight.setText(mSharedPreferences.getString(weightKey, ""));
+//                }
             }
         });
 
@@ -169,10 +247,19 @@ public class ProfileActivity extends AppCompatActivity {
 //        String UID = user.getUid();
     }
 
+    /**
+     * Creates a snackbar for update button
+     */
     private void snackbarUpdate() {
         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.health),"Profile has been updated", Snackbar.LENGTH_SHORT);
         mySnackbar.show();
     }
+
+    /**
+     * onCreateOptionsMenu for Profile activity
+     * @param menu Menu
+     * @return boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -180,6 +267,11 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * onOptionsItemSelected for Profile Activity
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
@@ -193,18 +285,23 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * adds profile to database
+     * @param profile user's profile information
+     */
     public void addProfile(Profile profile) {
         StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
 
         //Construct a JSONObject to build a formatted message to send.
         mCourseJSON = new JSONObject();
         try {
-            mCourseJSON.put(Profile.NAME, "Cedes");
-            mCourseJSON.put(Profile.EMAIL, "mtchea@uw.edu");
+            mCourseJSON.put(Profile.NAME, "Bob");
+            mCourseJSON.put(Profile.EMAIL, "bob@uw.edu");
             mCourseJSON.put(Profile.HEIGHT, profile.getHeight());
             mCourseJSON.put(Profile.WEIGHT, profile.getWeight());
+            mCourseJSON.put(Profile.GENDER, profile.getGender());
             mCourseJSON.put(Profile.AGE, profile.getAge());
-            mCourseJSON.put(Profile.PASSWORD, "newpassword");
+            mCourseJSON.put(Profile.PASSWORD, "password");
             new ProfileTask().execute(url.toString());
         } catch (JSONException e) {
             Toast.makeText(this, "Error with JSON creation on adding a course: " + e.getMessage()
@@ -212,6 +309,9 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Async Profile Task
+     */
     private class ProfileTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {

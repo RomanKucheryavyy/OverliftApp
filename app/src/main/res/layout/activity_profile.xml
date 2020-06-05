@@ -107,26 +107,28 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_photo">
 
         <EditText
+            android:id="@+id/displayGender"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/gender" />
 
         <EditText
+            android:id="@+id/displayAge"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/age" />
 
         <EditText
-
+            android:id="@+id/displayHeight"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="13dp"
             android:text="@string/height" />
 
         <EditText
-
+            android:id="@+id/displayWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="13dp"
