@@ -7,6 +7,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Profile Class
+ * @author Mercedes Chea
+ * @version June 5, 2020
+ */
 public class Profile {
 
     /**

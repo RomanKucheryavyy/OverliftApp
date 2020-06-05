@@ -181,17 +181,6 @@ public class ProfileActivity extends AppCompatActivity {
                     userGender.setText(mSharedPreferences.getString(genderKey, ""));
                 }
 
-//        if (mSharedPreferences.contains(ageKey)) {
-//            userAge.setText(mSharedPreferences.getInt(ageKey, -1));
-//        }
-
-//                if (mSharedPreferences.contains(heightKey)) {
-//                    userHeight.setText(mSharedPreferences.getString(heightKey, ""));
-//                }
-//
-//                if (mSharedPreferences.contains(weightKey)) {
-//                    userWeight.setText(mSharedPreferences.getString(weightKey, ""));
-//                }
             }
         });
 
@@ -202,31 +191,26 @@ public class ProfileActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_1:
- //                       Toast.makeText(ProfileActivity.this, "exercises", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ProfileActivity.this
                                 , ExerciseListActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.page_2:
-  //                      Toast.makeText(ProfileActivity.this, "health", Toast.LENGTH_SHORT).show();
                         Intent intent2 = new Intent(ProfileActivity.this
                                 , HealthActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.page_3:
-  //                      Toast.makeText(ProfileActivity.this, "workout", Toast.LENGTH_SHORT).show();
                         Context context = bottomNavigationView.getContext();
                         Intent intent3 = new Intent(ProfileActivity.this
                                 , MainActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.page_4:
- //                       Toast.makeText(ProfileActivity.this, "social", Toast.LENGTH_SHORT).show();
                         Intent intent4 = new Intent(ProfileActivity.this, SocialActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
-  //                      Toast.makeText(ProfileActivity.this, "profile", Toast.LENGTH_SHORT).show();
                         Intent intent5 = new Intent(ProfileActivity.this, ProfileActivity.class);
                         startActivity(intent5);
                         break;
@@ -352,6 +336,10 @@ public class ProfileActivity extends AppCompatActivity {
             return response;
         }
 
+        /**
+         * onPostExecute method
+         * @param s String
+         */
         @Override
         protected void onPostExecute(String s) {
             if (s.startsWith("Unable to add the new course")) {
