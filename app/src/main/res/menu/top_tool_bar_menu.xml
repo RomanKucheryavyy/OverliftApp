@@ -5,4 +5,7 @@
         android:id="@+id/userLogout"
         android:title="Logout"/>
 
+    <item
+        android:id="@+id/userShare"
+        android:title="Share Profile" />
 </menu>
