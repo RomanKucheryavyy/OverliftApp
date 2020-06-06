@@ -301,6 +301,32 @@ public class  ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent (this, SocialNotification.class));
 
                 break;
+
+            case R.id.userShare:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                StringBuilder shareBody = new StringBuilder();
+                sharingIntent.setType("text/plain");
+                shareBody.append("Name: ");
+                shareBody.append(mSharedPreferences.getString(nameKey, "name"));
+                shareBody.append("\n");
+                shareBody.append("Gender: ");
+                shareBody.append(mSharedPreferences.getString(genderKey, "gender"));
+                shareBody.append("\n");
+                shareBody.append("Height: ");
+                shareBody.append(mSharedPreferences.getString(heightKey, "height"));
+                shareBody.append("\n");
+                shareBody.append("Weight: ");
+                shareBody.append(mSharedPreferences.getString(weightKey, "weight"));
+                shareBody.append("\n");
+                shareBody.append("Age: ");
+                shareBody.append(Integer.toString(mSharedPreferences.getInt(ageKey, 0)));
+                String body = (String) shareBody.toString();
+                String shareSubject = "This is my profile information";
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, body);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+
+                startActivity(Intent.createChooser(sharingIntent, "Share Using"));
+                break;
         }
         return true;
     }
