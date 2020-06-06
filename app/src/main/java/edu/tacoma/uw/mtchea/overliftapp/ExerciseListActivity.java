@@ -302,7 +302,7 @@ public class ExerciseListActivity extends AppCompatActivity {
   //                  mCourseDB.deleteCourses();
 
                     // Also, add to the local database
-//                    for (int i=0; i<mExercisesList.size(); i++) {
+//                    for (int i=0; i<mExercisesList.size(); i++) {r
 //                        Exercise course = mExercisesList.get(i);
 //                        mCourseDB.insertCourse(course.getCourseId(),
 //                                course.getCourseShortDesc(),

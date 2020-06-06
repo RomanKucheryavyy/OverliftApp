@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
     public CheckedTextView check6;
     public CheckedTextView check7;
     Button d1,d2,d3,d4,d5,d6,d7;
+    public static final String mypreference = "mypref";
+    private SharedPreferences mSharedPreferences;
+    public static final String emailKey = "emailKey";
+    private String email;
 
     long startTime = 0L, timeInSeconds = 0L, updateTime = 0L, timeSwapBuff = 0L, timeInMilliseconds = 0L;
     /**
@@ -93,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        email = mSharedPreferences.getString(emailKey, "");
 
         buttonStart = (Button) findViewById(R.id.buttonStart);
         buttonStop = (Button) findViewById(R.id.buttonStop);
@@ -427,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
                             new OutputStreamWriter(urlConnection.getOutputStream());
 
                     mWorkoutJSON = new JSONObject();
-                    mWorkoutJSON.put("email", "ross1998@uw.edu");
+                    mWorkoutJSON.put("email", email);
                     // For Debugging
                     wr.write(mWorkoutJSON.toString());
                     wr.flush();
@@ -560,7 +568,7 @@ public class MainActivity extends AppCompatActivity {
                             new OutputStreamWriter(urlConnection.getOutputStream());
 
                     mWorkoutJSON = new JSONObject();
-                    mWorkoutJSON.put("email", "ross1998@uw.edu");
+                    mWorkoutJSON.put("email", email);
                     mWorkoutJSON.put("ename", deleteString);
                     System.out.println(mWorkoutJSON);
                     // For Debugging

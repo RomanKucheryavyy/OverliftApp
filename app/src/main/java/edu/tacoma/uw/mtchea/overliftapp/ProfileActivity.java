@@ -49,7 +49,7 @@ import edu.tacoma.uw.mtchea.overliftapp.model.Profile;
  * @author Mercedes Chea
  * @version May 15, 2020
  */
-public class ProfileActivity extends AppCompatActivity {
+public class  ProfileActivity extends AppCompatActivity {
 
     /**
      * Profile String

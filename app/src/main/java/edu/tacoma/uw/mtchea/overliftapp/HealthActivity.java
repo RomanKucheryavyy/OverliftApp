@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -57,12 +58,21 @@ public class HealthActivity extends AppCompatActivity {
     public Button carbsButton;
     public Button proteinButton;
 
+    public static final String mypreference = "mypref";
+    private SharedPreferences mSharedPreferences;
+    public static final String emailKey = "emailKey";
+    private String email;
+
     //ExerciseDetailActivity test = new ExerciseDetailActivity();
     //public Button fatsButton = (Button) findViewById(R.id.fats_button);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        email = mSharedPreferences.getString(emailKey, "");
+//        System.out.println("EMAIL" + email);
 
 
         caloriesButton = (Button) findViewById(R.id.calories_button);
@@ -115,7 +125,7 @@ public class HealthActivity extends AppCompatActivity {
                 int quantity = Integer.parseInt(editQuantity.getText().toString());
 
 
-                Meal meal = new Meal(calories, carbs, fats, proteins, foodName, quantity, "ross1998@uw.edu");
+                Meal meal = new Meal(calories, carbs, fats, proteins, foodName, quantity, email);
                 addMeal(meal);
 
                 new MealTask().execute(getString(R.string.get_meals));
@@ -248,7 +258,7 @@ public class HealthActivity extends AppCompatActivity {
                     // For Debugging
                     //Log.i(ADD_MEAL, mCourseJSON.toString());
                     mCourseJSON = new JSONObject();
-                    mCourseJSON.put("email", "ross1998@uw.edu");
+                    mCourseJSON.put("email", email);
 
                     wr.write(mCourseJSON.toString());
                     System.out.println(" TESTING! " + mCourseJSON.toString());
@@ -327,7 +337,6 @@ public class HealthActivity extends AppCompatActivity {
                         fatsTemp += mMealList.get(i).getFats() * mMealList.get(i).getQuantity();
                         proteinsTemp += mMealList.get(i).getProteins() * mMealList.get(i).getQuantity();
                         carbsTemp += mMealList.get(i).getCarbs() * mMealList.get(i).getQuantity();
-
                     }
                     caloriesButton.setText(caloriesTemp + "/2500");
                     fatsButton.setText("Fats\n" + fatsTemp + "(g)");

@@ -6,7 +6,9 @@
  */
 package edu.tacoma.uw.mtchea.overliftapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,11 +47,20 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
     private JSONObject mWorkoutJSON;
     private List<Workout> mWorkoutList;
     ExerciseDetailFragment fragment = new ExerciseDetailFragment();
+    public static final String mypreference = "mypref";
+    private SharedPreferences mSharedPreferences;
+    public static final String emailKey = "emailKey";
+    private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        email = mSharedPreferences.getString(emailKey, "");
+        System.out.println("EMAIL" + email);
 
 //        setSupportActionBar(toolbar);
 //        System.out.println("MY TITLE " + toolbar.getTitle());
@@ -218,7 +229,7 @@ public class ExerciseDetailActivity extends AppCompatActivity  {
 
                     mWorkoutJSON = new JSONObject();
                     mWorkoutJSON.put("ename",fragment.getExerciseName());
-                    mWorkoutJSON.put("email", "ross1998@uw.edu");
+                    mWorkoutJSON.put("email", email);
 
                     wr.write(mWorkoutJSON.toString());
                     System.out.println(" TESTING! " + mWorkoutJSON.toString());
