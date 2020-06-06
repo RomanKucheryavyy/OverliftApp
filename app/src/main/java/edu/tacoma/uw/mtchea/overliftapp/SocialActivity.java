@@ -92,6 +92,48 @@ public class SocialActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
+//        The navigation bar that lists all the tabs on the bottom.
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setSelectedItemId(R.id.page_4);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SocialActivity.this
+                                , ExerciseListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.page_2:
+                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(SocialActivity.this
+                                , HealthActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case R.id.page_3:
+                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
+//                        Context context = bottomNavigationView.getContext();
+                        Intent intent3 = new Intent(SocialActivity.this
+                                , MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.page_4:
+                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(SocialActivity.this, SocialActivity.class);
+                        startActivity(intent4);
+                        break;
+                    case R.id.page_5:
+                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(SocialActivity.this, ProfileActivity.class);
+                        startActivity(intent5);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     /**

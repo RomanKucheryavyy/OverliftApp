@@ -14,9 +14,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +33,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
@@ -75,6 +89,53 @@ public class SocialNotification extends AppCompatActivity {
      */
     private FirebaseAuth mAuth;
 
+    private SharedPreferences mSharedPreferences;
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String nameKey = "nameKey";
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String emailKey = "emailKey";
+
+    /**
+     * String for Shared Preferences
+     */
+    public static final String mypreference = "mypref";
+
+    /**
+     * Gender Key for Shared Preferences
+     */
+    public static final String genderKey = "genderKey";
+
+    /**
+     * Height Key for Shared Preferences
+     */
+    public static final String heightKey = "heightKey";
+
+    /**
+     * Weight Key for Shared Preferences
+     */
+    public static final String weightKey = "weightKey";
+
+    /**
+     * Age Key for Shared Preferences
+     */
+    public static final String ageKey = "ageKey";
+
+    /**
+     * Profile String
+     */
+    public static final String ADD_PROFILE = "ADD_PROFILE";
+
+    /**
+     * JSON Object for sending data
+     */
+    private JSONObject mCourseJSON;
+
     /**
      * Creates navigationbar,
      * @param savedInstanceState
@@ -86,47 +147,47 @@ public class SocialNotification extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Notification");
-
-        // The navigation bar that lists all the tabs on the bottom.
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.page_4);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.page_1:
-                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SocialNotification.this
-                                , ExerciseListActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.page_2:
-                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(SocialNotification.this
-                                , HealthActivity.class);
-                        startActivity(intent2);
-                        break;
-                    case R.id.page_3:
-                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
-                        //Context context = bottomNavigationView.getContext();
-                        Intent intent3 = new Intent(SocialNotification.this
-                                , MainActivity.class);
-                        startActivity(intent3);
-                        break;
-                    case R.id.page_4:
-                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(SocialNotification.this, SocialNotification.class);
-                        startActivity(intent4);
-                        break;
-                    case R.id.page_5:
-                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
-                        Intent intent5 = new Intent(SocialNotification.this, ProfileActivity.class);
-                        startActivity(intent5);
-                        break;
-                }
-                return true;
-            }
-        });
+        mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+//        // The navigation bar that lists all the tabs on the bottom.
+//        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setSelectedItemId(R.id.page_4);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.page_1:
+//                        //Toast.makeText(SocialNotification.this, "exercises", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(SocialNotification.this
+//                                , ExerciseListActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    case R.id.page_2:
+//                        //Toast.makeText(SocialNotification.this, "health", Toast.LENGTH_SHORT).show();
+//                        Intent intent2 = new Intent(SocialNotification.this
+//                                , HealthActivity.class);
+//                        startActivity(intent2);
+//                        break;
+//                    case R.id.page_3:
+//                        //Toast.makeText(SocialNotification.this, "workout", Toast.LENGTH_SHORT).show();
+//                        //Context context = bottomNavigationView.getContext();
+//                        Intent intent3 = new Intent(SocialNotification.this
+//                                , MainActivity.class);
+//                        startActivity(intent3);
+//                        break;
+//                    case R.id.page_4:
+//                        //Toast.makeText(SocialNotification.this, "social", Toast.LENGTH_SHORT).show();
+//                        Intent intent4 = new Intent(SocialNotification.this, SocialActivity.class);
+//                        startActivity(intent4);
+//                        break;
+//                    case R.id.page_5:
+//                        //Toast.makeText(SocialNotification.this, "profile", Toast.LENGTH_SHORT).show();
+//                        Intent intent5 = new Intent(SocialNotification.this, ProfileActivity.class);
+//                        startActivity(intent5);
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
         // Gets the authorization from Firebase.
         mAuth = FirebaseAuth.getInstance();
@@ -154,6 +215,30 @@ public class SocialNotification extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.buttonLogIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String email = editTextEmail.getText().toString().trim();
+                final String password = editTextPassword.getText().toString().trim();
+                userLogin(email, password);
+            }
+        });
+
+        findViewById(R.id.buttonResetPassword).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
+
+    }
+
+    /**
+     * A simple get method to pass through firebase authorization.
+     * @return firebase authorization.
+     */
+    public FirebaseAuth getFirebaseAuth() {
+        return mAuth;
     }
 
     /**
@@ -189,7 +274,7 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            startSocialActivity();
+                            startProfileActivity();
                         } else {
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 userLogin(email, password);
@@ -214,7 +299,15 @@ public class SocialNotification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            startSocialActivity();
+                            SharedPreferences.Editor editor = mSharedPreferences.edit();
+                            editor.putString(emailKey, email).commit();
+                            StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/getprofile?email=");
+                            url.append(email);
+                            System.out.println(email);
+                            System.out.println(url.toString());
+                            new GetProfileTask().execute(url.toString());
+
+                            startMainActivity();
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(SocialNotification.this, task.getException()
@@ -223,6 +316,25 @@ public class SocialNotification extends AppCompatActivity {
                     }
                 });
     }
+
+    private void resetPassword() {
+        final String email = editTextEmail.getText().toString().trim();
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SocialNotification.this, "Password reset link was sent to your email", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SocialNotification.this, "Reset link failed. \nPlease make sure your email is correct.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
+
+
+
 
     /**
      * Checks if the user is already signed in.
@@ -234,18 +346,151 @@ public class SocialNotification extends AppCompatActivity {
 
         // if user is not logged in send him to main login activity.
         if(mAuth.getCurrentUser() != null) {
-            startSocialActivity();
+            startMainActivity();
         }
 
     }
 
     /**
-     * Starts the social activity.
+     * Starts the main activity.
      */
-    private void startSocialActivity() {
-        Intent intent = new Intent(this, SocialActivity.class);
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    /**
+     * Starts the profile activity.
+     */
+    private void startProfileActivity() {
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("userEmail", email);
+        intent.putExtra("userPassword", password);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private class GetProfileTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+//            String response = "";
+//            HttpURLConnection urlConnection = null;
+//            for (String url : urls) {
+//                try {
+//                    URL urlObject = new URL(url);
+//                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+//
+//                    InputStream content = urlConnection.getInputStream();
+//
+//                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+//                    String s = "";
+//                    while ((s = buffer.readLine()) != null) {
+//                        response += s;
+//                    }
+//
+//                } catch (Exception e) {
+//                    response = "Unable to get user information, Reason: "
+//                            + e.getMessage();
+//                } finally {
+//                    if (urlConnection != null)
+//                        urlConnection.disconnect();
+//                }
+//            }
+//            return response;
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setDoOutput(true);
+                    OutputStreamWriter wr =
+                            new OutputStreamWriter(urlConnection.getOutputStream());
+
+                    String emailTemp = mSharedPreferences.getString(emailKey, "");
+
+                    // For Debugging
+                    mCourseJSON = new JSONObject();
+                    mCourseJSON.put("email", emailTemp);
+
+                    Log.i(ADD_PROFILE, mCourseJSON.toString());
+                    wr.write(mCourseJSON.toString());
+                    wr.flush();
+                    wr.close();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to add the new course, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        /**
+         * onPostExecute method
+         * @param s String
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.startsWith("Unable to add the new course")) {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject.getBoolean("success")) {
+
+                    Toast.makeText(getApplicationContext(), "JSON successful"
+                            , Toast.LENGTH_LONG).show();
+
+                    String name = jsonObject.getJSONArray("names").getJSONObject(0).getString("fname");
+                    String gender = jsonObject.getJSONArray("names").getJSONObject(0).getString("gender");
+                    int age = jsonObject.getJSONArray("names").getJSONObject(0).getInt("age");
+                    String height = jsonObject.getJSONArray("names").getJSONObject(0).getString("height");
+                    String weight = jsonObject.getJSONArray("names").getJSONObject(0).getString("bodyweight");
+
+                    System.out.println(gender);
+                    System.out.println(age);
+                    System.out.println(height);
+                    System.out.println(weight);
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
+                    editor.putString(nameKey, name);
+                    editor.putString(genderKey, gender);
+                    editor.putInt(ageKey, age);
+                    editor.putString(heightKey, height);
+                    editor.putString(weightKey, weight);
+                    editor.commit();
+                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), "Failed: "
+//                                    + jsonObject.getString("error")
+//                            , Toast.LENGTH_LONG).show();
+////                    Log.e(ADD_PROFILE, jsonObject.getString("error"));
+////                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "JSON error cannot get profile"
+                                + e.getMessage()
+                        , Toast.LENGTH_LONG).show();
+                Log.e(ADD_PROFILE, e.getMessage());
+            }
+        }
     }
 
 }

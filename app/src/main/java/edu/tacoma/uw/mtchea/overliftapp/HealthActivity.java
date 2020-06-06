@@ -155,7 +155,7 @@ public class HealthActivity extends AppCompatActivity {
                         break;
                     case R.id.page_4:
                         Toast.makeText(HealthActivity.this, "social", Toast.LENGTH_SHORT).show();
-                        Intent intent4 = new Intent(HealthActivity.this, SocialNotification.class);
+                        Intent intent4 = new Intent(HealthActivity.this, SocialActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.page_5:
