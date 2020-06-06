@@ -3,7 +3,8 @@
     <string name="add_meal"> https://ross1998-project-backend.herokuapp.com/addmeal </string>
     <string name="get_exercises"> https://ross1998-project-backend.herokuapp.com/exercises </string>
     <string name="get_meals"> https://ross1998-project-backend.herokuapp.com/getmeals </string>
-
-
+    <string name="add_workout"> https://ross1998-project-backend.herokuapp.com/addexercise </string>
+    <string name="get_workout"> https://ross1998-project-backend.herokuapp.com/getexercises </string>
+    <string name="delete_workout"> https://ross1998-project-backend.herokuapp.com/deleteexercise </string>
 
 </resources>

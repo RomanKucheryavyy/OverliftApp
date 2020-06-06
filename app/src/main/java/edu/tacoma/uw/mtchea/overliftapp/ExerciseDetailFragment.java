@@ -33,17 +33,19 @@ public class ExerciseDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-
     /**
      * The dummy content this fragment is presenting.
      */
     private Exercise mExercise;
-
+    public static String exerciseName;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public ExerciseDetailFragment() {
+    }
+    public String getExerciseName(){
+        return this.exerciseName;
     }
 
     /**
@@ -64,6 +66,7 @@ public class ExerciseDetailFragment extends Fragment {
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mExercise.getExercise());
+                exerciseName = mExercise.getExercise();
             }
         }
     }

@@ -154,7 +154,7 @@ public class ExerciseListActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             if (mExercisesList == null) {
-                new CoursesTask().execute(getString(R.string.get_exercises));
+                new ExerciseTask().execute(getString(R.string.get_exercises));
             }
         }
 //        else {
@@ -248,7 +248,7 @@ public class ExerciseListActivity extends AppCompatActivity {
             }
         }
     }
-    private class CoursesTask extends AsyncTask<String, Void, String> {
+    private class ExerciseTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {

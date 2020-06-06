@@ -169,6 +169,10 @@ public class HealthActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * on resume
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -344,6 +348,9 @@ public class HealthActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * sync for loading the diet details
+     */
     private class AddMealAsyncTest extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {

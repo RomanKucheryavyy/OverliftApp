@@ -13,6 +13,150 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        app:menu="@menu/bottom_navigation_menu" />-->
 
+    <LinearLayout
+        android:layout_width="65dp"
+        android:layout_height="354dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="153dp"
+        android:layout_marginEnd="70dp"
+        android:orientation="vertical"
+        android:layout_marginRight="70dp">
+
+        <Button
+            android:id="@+id/d1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+
+        <Button
+            android:id="@+id/d7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorPrimary"
+            android:text="X" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/workout_list"
+
+        android:layout_width="300dp"
+        android:layout_height="354dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="153dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:orientation="vertical">
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView6"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView7"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:checkMark="@drawable/delete"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -67,70 +211,72 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="86dp"
-                android:layout_marginLeft="86dp"
-                android:layout_marginTop="120dp"
-                android:text="@string/today_s_workout"
-                android:textAllCaps="false"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="125dp"
-                android:layout_marginRight="125dp"
-                android:layout_marginBottom="162dp"
-                android:text="0:00:000"
-                android:textColor="@color/colorPrimary"
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/buttonStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="97dp"
-                android:layout_marginLeft="97dp"
-                android:layout_marginBottom="90dp"
-                android:text="Start"
-                android:background="@drawable/rounded_button"
-                android:textColor="@color/colorPrimary" />
-
-            <Button
-                android:id="@+id/buttonStop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="97dp"
-                android:layout_marginRight="97dp"
-                android:layout_marginBottom="89dp"
-                android:text="Stop"
-                android:background="@drawable/rounded_button"
-                android:textColor="@color/colorPrimary" />
-
-        </RelativeLayout>
     </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@+id/todays"
+        app:layout_anchorGravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="86dp"
+            android:layout_marginLeft="86dp"
+            android:layout_marginTop="85dp"
+            android:text="@string/today_s_workout"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="125dp"
+            android:layout_marginRight="125dp"
+            android:layout_marginBottom="162dp"
+            android:text="0:00:000"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/buttonStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="97dp"
+            android:layout_marginLeft="97dp"
+            android:layout_marginBottom="90dp"
+            android:background="@drawable/rounded_button"
+            android:text="Start"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/buttonStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="97dp"
+            android:layout_marginRight="97dp"
+            android:layout_marginBottom="89dp"
+            android:background="@drawable/rounded_button"
+            android:text="Stop"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
