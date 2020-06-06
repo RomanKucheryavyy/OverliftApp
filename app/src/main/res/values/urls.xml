@@ -4,7 +4,7 @@
     <string name="get_exercises"> https://ross1998-project-backend.herokuapp.com/exercises </string>
     <string name="get_meals"> https://ross1998-project-backend.herokuapp.com/getmeals </string>
     <string name="add_profile"> https://ross1998-project-backend.herokuapp.com/register </string>
-
+    <string name="get_profile"> https://ross1998-project-backend.herokuapp.com/getprofile </string>
 
 
 </resources>

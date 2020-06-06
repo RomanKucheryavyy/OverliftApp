@@ -59,6 +59,16 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * Gender Key for Shared Preferences
      */
+    public static final String nameKey = "nameKey";
+
+    /**
+     * Gender Key for Shared Preferences
+     */
+    public static final String emailKey = "emailKey";
+
+    /**
+     * Gender Key for Shared Preferences
+     */
     public static final String genderKey = "genderKey";
 
     /**
@@ -75,11 +85,6 @@ public class ProfileActivity extends AppCompatActivity {
      * Age Key for Shared Preferences
      */
     public static final String ageKey = "ageKey";
-
-    /**
-     * Age Key for Shared Preferences
-     */
-    public static final String emailKey = "emailKey";
 
     /**
      * String for Shared Preferences
@@ -126,18 +131,29 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        EditText editName = findViewById(R.id.editNameText);
         EditText editGender = findViewById(R.id.editGenderText);
         EditText editHeight = findViewById(R.id.editHeightText);
         EditText editWeight = findViewById(R.id.editWeightText);
         EditText editAge = findViewById(R.id.editAgeText);
+        TextView getEmail = findViewById(R.id.emailText);
 
-
+        TextView userName = (TextView) findViewById(R.id.editNameText);
+        TextView loginEmail = (TextView) findViewById(R.id.emailText);
         TextView userGender = (TextView) findViewById(R.id.editGenderText);
         TextView userHeight = (TextView) findViewById(R.id.editHeightText);
         TextView userWeight = (TextView) findViewById(R.id.editWeightText);
         TextView userAge = (TextView) findViewById(R.id.editAgeText);
 
         mSharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+        if (mSharedPreferences.contains(nameKey)) {
+            userName.setText(mSharedPreferences.getString(nameKey, ""));
+        }
+
+        if (mSharedPreferences.contains(emailKey)) {
+            loginEmail.setText(mSharedPreferences.getString(emailKey, ""));
+        }
 
         if (mSharedPreferences.contains(genderKey)) {
             userGender.setText(mSharedPreferences.getString(genderKey, ""));
@@ -159,6 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // adds profile data to database
+                String name = editName.getText().toString();
                 String gender = editGender.getText().toString();
                 System.out.println(gender);
                 String height = editHeight.getText().toString();
@@ -173,12 +190,15 @@ public class ProfileActivity extends AppCompatActivity {
                 String email = mSharedPreferences.getString(emailKey, "");
                 System.out.println(email);
 
-                Profile profile = new Profile("Cedes", email, height, weight, gender, age, "newpassword");
+                Profile profile = new Profile(name, email, height, weight, gender, age, "password");
+                System.out.println("BEFORE ADD PROFILE");
                 addProfile(profile);
+                System.out.println("AFTER ADD PROFILE");
 
 
                 // saves profile data using shared preferences
                 SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.putString(nameKey, name);
                 editor.putString(genderKey, gender);
                 editor.putString(heightKey, height);
                 editor.putString(weightKey, weight);
@@ -272,6 +292,7 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.userLogout:
                 FirebaseAuth.getInstance().signOut();
 
+                mSharedPreferences.edit().remove(nameKey).commit();
                 mSharedPreferences.edit().remove(genderKey).commit();
                 mSharedPreferences.edit().remove(heightKey).commit();
                 mSharedPreferences.edit().remove(weightKey).commit();
@@ -294,32 +315,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Construct a JSONObject to build a formatted message to send.
         mCourseJSON = new JSONObject();
         try {
-            mCourseJSON.put(Profile.NAME, "Bob");
+            mCourseJSON.put(Profile.NAME, profile.getName());
             mCourseJSON.put(Profile.EMAIL, profile.getEmail());
-            mCourseJSON.put(Profile.HEIGHT, profile.getHeight());
-            mCourseJSON.put(Profile.WEIGHT, profile.getWeight());
-            mCourseJSON.put(Profile.GENDER, profile.getGender());
-            mCourseJSON.put(Profile.AGE, profile.getAge());
-            mCourseJSON.put(Profile.PASSWORD, "password");
-            new ProfileTask().execute(url.toString());
-        } catch (JSONException e) {
-            Toast.makeText(this, "Error with JSON creation on adding a course: " + e.getMessage()
-                    , Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * adds profile to database
-     * @param profile user's profile information
-     */
-    public void getProfile(Profile profile) {
-        StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
-
-        //Construct a JSONObject to build a formatted message to send.
-        mCourseJSON = new JSONObject();
-        try {
-            mCourseJSON.put(Profile.NAME, "Bob");
-            mCourseJSON.put(Profile.EMAIL, "bob@uw.edu");
             mCourseJSON.put(Profile.HEIGHT, profile.getHeight());
             mCourseJSON.put(Profile.WEIGHT, profile.getWeight());
             mCourseJSON.put(Profile.GENDER, profile.getGender());
@@ -351,6 +348,7 @@ public class ProfileActivity extends AppCompatActivity {
                             new OutputStreamWriter(urlConnection.getOutputStream());
 
                     // For Debugging
+
                     Log.i(ADD_PROFILE, mCourseJSON.toString());
                     wr.write(mCourseJSON.toString());
                     wr.flush();

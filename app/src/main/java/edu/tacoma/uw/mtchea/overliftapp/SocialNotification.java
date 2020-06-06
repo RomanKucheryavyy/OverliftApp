@@ -94,6 +94,11 @@ public class SocialNotification extends AppCompatActivity {
     /**
      * Age Key for Shared Preferences
      */
+    public static final String nameKey = "nameKey";
+
+    /**
+     * Age Key for Shared Preferences
+     */
     public static final String emailKey = "emailKey";
 
     /**
@@ -296,8 +301,10 @@ public class SocialNotification extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             SharedPreferences.Editor editor = mSharedPreferences.edit();
                             editor.putString(emailKey, email).commit();
-                            StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/register");
+                            StringBuilder url = new StringBuilder("https://ross1998-project-backend.herokuapp.com/getprofile?email=");
                             url.append(email);
+                            System.out.println(email);
+                            System.out.println(url.toString());
                             new GetProfileTask().execute(url.toString());
 
                             startMainActivity();
@@ -369,47 +376,12 @@ public class SocialNotification extends AppCompatActivity {
     private class GetProfileTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            String response = "";
-            HttpURLConnection urlConnection = null;
-            for (String url : urls) {
-                try {
-                    URL urlObject = new URL(url);
-                    urlConnection = (HttpURLConnection) urlObject.openConnection();
-
-                    InputStream content = urlConnection.getInputStream();
-
-                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
-                    while ((s = buffer.readLine()) != null) {
-                        response += s;
-                    }
-
-                } catch (Exception e) {
-                    response = "Unable to get user information, Reason: "
-                            + e.getMessage();
-                } finally {
-                    if (urlConnection != null)
-                        urlConnection.disconnect();
-                }
-            }
-            return response;
 //            String response = "";
 //            HttpURLConnection urlConnection = null;
 //            for (String url : urls) {
 //                try {
 //                    URL urlObject = new URL(url);
 //                    urlConnection = (HttpURLConnection) urlObject.openConnection();
-//                    urlConnection.setRequestMethod("POST");
-//                    urlConnection.setRequestProperty("Content-Type", "application/json");
-//                    urlConnection.setDoOutput(true);
-//                    OutputStreamWriter wr =
-//                            new OutputStreamWriter(urlConnection.getOutputStream());
-//
-//                    // For Debugging
-//                    Log.i(ADD_PROFILE, mCourseJSON.toString());
-//                    wr.write(mCourseJSON.toString());
-//                    wr.flush();
-//                    wr.close();
 //
 //                    InputStream content = urlConnection.getInputStream();
 //
@@ -420,7 +392,7 @@ public class SocialNotification extends AppCompatActivity {
 //                    }
 //
 //                } catch (Exception e) {
-//                    response = "Unable to add the new course, Reason: "
+//                    response = "Unable to get user information, Reason: "
 //                            + e.getMessage();
 //                } finally {
 //                    if (urlConnection != null)
@@ -428,6 +400,46 @@ public class SocialNotification extends AppCompatActivity {
 //                }
 //            }
 //            return response;
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setDoOutput(true);
+                    OutputStreamWriter wr =
+                            new OutputStreamWriter(urlConnection.getOutputStream());
+
+                    String emailTemp = mSharedPreferences.getString(emailKey, "");
+
+                    // For Debugging
+                    mCourseJSON = new JSONObject();
+                    mCourseJSON.put("email", emailTemp);
+
+                    Log.i(ADD_PROFILE, mCourseJSON.toString());
+                    wr.write(mCourseJSON.toString());
+                    wr.flush();
+                    wr.close();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to add the new course, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
         }
 
         /**
@@ -444,12 +456,22 @@ public class SocialNotification extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
 
                 if (jsonObject.getBoolean("success")) {
-                    String gender = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("gender");
-                    int age = jsonObject.getJSONArray("profiles").getJSONObject(0).getInt("age");
-                    String height = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("height");
-                    String weight = jsonObject.getJSONArray("profiles").getJSONObject(0).getString("bodyweight");
 
+                    Toast.makeText(getApplicationContext(), "JSON successful"
+                            , Toast.LENGTH_LONG).show();
+
+                    String name = jsonObject.getJSONArray("names").getJSONObject(0).getString("fname");
+                    String gender = jsonObject.getJSONArray("names").getJSONObject(0).getString("gender");
+                    int age = jsonObject.getJSONArray("names").getJSONObject(0).getInt("age");
+                    String height = jsonObject.getJSONArray("names").getJSONObject(0).getString("height");
+                    String weight = jsonObject.getJSONArray("names").getJSONObject(0).getString("bodyweight");
+
+                    System.out.println(gender);
+                    System.out.println(age);
+                    System.out.println(height);
+                    System.out.println(weight);
                     SharedPreferences.Editor editor = mSharedPreferences.edit();
+                    editor.putString(nameKey, name);
                     editor.putString(genderKey, gender);
                     editor.putInt(ageKey, age);
                     editor.putString(heightKey, height);
@@ -460,8 +482,8 @@ public class SocialNotification extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), "Failed: "
 //                                    + jsonObject.getString("error")
 //                            , Toast.LENGTH_LONG).show();
-//                    Log.e(ADD_PROFILE, jsonObject.getString("error"));
-//                }
+////                    Log.e(ADD_PROFILE, jsonObject.getString("error"));
+////                }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "JSON error cannot get profile"
                                 + e.getMessage()

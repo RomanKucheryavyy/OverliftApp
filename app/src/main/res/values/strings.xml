@@ -11,6 +11,7 @@
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="please_enter_your_height">Please enter your height</string>
+    <string name="please_enter_your_name">Please enter your name</string>
     <string name="desc" />
     <string name="_1800_2500">1800/2500</string>
     <string name="track_your_diet">Track Your Diet:</string>
