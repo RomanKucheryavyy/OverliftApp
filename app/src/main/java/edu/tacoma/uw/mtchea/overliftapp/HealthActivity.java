@@ -212,7 +212,7 @@ public class HealthActivity extends AppCompatActivity {
             mCourseJSON.put(Meal.PROTEINS, meal.getProteins());
             mCourseJSON.put(Meal.NAME, meal.getFoodId());
             mCourseJSON.put(Meal.QUANTITY, meal.getQuantity());
-            mCourseJSON.put(Meal.EMAIL, "ross1998@uw.edu");
+            mCourseJSON.put(Meal.EMAIL, email);
             new AddMealAsyncTest().execute(url.toString());
 
         } catch (JSONException e){
