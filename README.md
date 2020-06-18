@@ -1,6 +1,6 @@
 # Overlift - Team 2
 
-Created by Ilya Bokov, Mercedes Chea, Ross Martsenyak, Roman Kucheryavyy
+Created by Roman Kucheryavyy Ilya Bokov, Mercedes Chea, Ross Martsenyak
 
 ## Features
 
